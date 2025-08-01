@@ -3,7 +3,7 @@
 # Created by F. Tarulli, Politecnico di Torino, Italy – February 27, 2025
 #       Process PDB frames with EDTSurf for the given mode (sas,vws,ms).
 
-# Usage: ./surface-generator.sh [sas|vws|ms]
+# Usage: ./surface-generator.sh [sas|vws|ms] <tot frames>
 # Default mode: ms
 
 usage="Usage: $0 [sas|vws|ms] <total_frames>. Example: $0 ms 1501"
