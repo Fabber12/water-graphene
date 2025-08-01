@@ -1,4 +1,4 @@
-variable run  string water_graph-density
+variable run  string water-graph_density
 variable temp equal 298.
 echo            log
 log             ${run}.log
