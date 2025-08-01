@@ -4,8 +4,8 @@ close all
 for replica=0:2
 
     filename_dump = sprintf('../../lammps/CA/%d-replica/wettability_%d.dump', replica,replica);
-    filename_txt = sprintf('../../lammps/CA/$d-replica/wettability_%d.txt', replica,replica);
-    mv(filename_dump, filename_txt)
+    filename_txt = sprintf('../../lammps/CA/%d-replica/wettability_%d.txt', replica,replica);
+    movefile(filename_dump, filename_txt)
     
     data_tot = readtable(filename_txt,'ReadVariableNames',false);
     
@@ -593,5 +593,5 @@ for replica=0:2
     savefile = sprintf("wet_%d.mat", replica);
     save(savefile,'tot')
     
-    mv(filename_txt, filename_dump)
+    movefile(filename_txt, filename_dump)
 end
