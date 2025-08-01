@@ -75,7 +75,8 @@ post-processing/DP/
                 |   └─ (surface-generator_parallel.sh)  # Generates .ply 3D molecular surfaces (with `GNU parallel`)
                 │
                 ├─ data_parser.m            # Counts particles between bins for each frame
-                └─ density_profile.m        # Plots water density profile
+                ├─ density_profile.m        # Plots water density profile
+                └─ fastPlyRead.m            # Matlab function to read ply files
 ```
 
 ### Usage
@@ -132,10 +133,11 @@ A microcanonical production run records atomic velocities every femtosecond; the
 lammps/PDOS/
         │
         ├─ TERSOFF_forcefield.ff        # Forcefield
-        └─ Water‑Graph_pdos.in*         # LAMMPS inputs
+        └─ Water‑Graph_pdos.in*         # LAMMPS input files
 
-post‑processing/PDOS/                  
-        └─ pdos.ipynb                   # Computes DOS and overlap factor
+post‑processing/PDOS/
+                  │                
+                  └─ pdos.ipynb                   # Computes DOS and overlap factor
 ```
 
 ### Usage
