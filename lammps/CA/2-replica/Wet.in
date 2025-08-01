@@ -4,7 +4,7 @@ include "Wet.in.init"
 
 # ----------------- Atom Definition Section -----------------
 
-read_data "..1-replica/1_relaxed_CA.data" 
+read_data "../1-replica/1_relaxed_CA.data" 
 
 # ----------------- Settings Section -----------------
 
