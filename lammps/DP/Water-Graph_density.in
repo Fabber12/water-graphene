@@ -1,0 +1,15 @@
+# ----------------- Init Section -----------------
+
+include "Water_Graph-density.in.init"
+
+# ----------------- Atom Definition Section -----------------
+
+read_data "../TBR/transient/systems_relaxed/relaxed_water-graph_80%.data"  # or e.g. read_data "../TBR/transient/systems_relaxed/relaxed_water-graph_20%.data
+
+# ----------------- Settings Section -----------------
+
+include "Water_Graph-density.in.settings"
+
+# ----------------- Run Section -----------------
+
+include "Water_Graph-density.in.run"

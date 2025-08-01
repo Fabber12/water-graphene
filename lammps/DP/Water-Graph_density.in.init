@@ -1,0 +1,17 @@
+variable run  string water_graph-density
+variable temp equal 298.
+echo            log
+log             ${run}.log
+
+neighbor        2.0 bin
+neigh_modify    check yes
+
+boundary p p p
+
+units        real
+atom_style   full
+pair_style   hybrid lj/class2/coul/long 12.0 12.0 tersoff
+special_bonds lj/coul 0 0 1
+bond_style   class2
+angle_style  class2
+kspace_style pppm 0.0001
