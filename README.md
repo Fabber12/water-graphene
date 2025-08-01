@@ -62,7 +62,6 @@ The trajectory (.dump) is first binned along the surface-normal axis—using mol
 
 ```python
 lammps/DP/
-        │
         ├─ TERSOFF_forcefield.ff            # Forcefield
         └─ Water-Graph_density.in*          # LAMMPS input files
 
@@ -131,12 +130,10 @@ A microcanonical production run records atomic velocities every femtosecond; the
 
 ```python
 lammps/PDOS/
-        │
         ├─ TERSOFF_forcefield.ff        # Forcefield
         └─ Water‑Graph_pdos.in*         # LAMMPS input files
 
-post‑processing/PDOS/
-                  │                
+post‑processing/PDOS/               
                   └─ pdos.ipynb                   # Computes DOS and overlap factor
 ```
 
