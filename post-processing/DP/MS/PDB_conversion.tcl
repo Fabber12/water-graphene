@@ -1,4 +1,4 @@
-mol new water_graph_reduced.dump type lammpstrj \
+mol new water-graph_reduced.dump type lammpstrj \
     first 0 last -1 step 1 waitfor -1
 
 mkdir -p PDB

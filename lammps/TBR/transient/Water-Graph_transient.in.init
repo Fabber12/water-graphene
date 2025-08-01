@@ -1,4 +1,4 @@
-variable run  string water_graph-trans
+variable run  string water-graph_trans
 variable steps equal 4
 variable temp equal 298.
 variable temp2 equal 360.
