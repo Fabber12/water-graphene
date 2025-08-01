@@ -97,7 +97,18 @@ post-processing/DP/
     ./surface-generator.sh ms 1501          # ms: molecular surface | 1501: total number of frames (i.e. total number of PBD or ply files)
     ```
 3. **Density profile**:
-
+    ```bash
+    cd post-processing/DP
+    ```
+    Open MATLAB and run: 
+    ```
+    data_parser.m
+    ```
+    ``` 
+    density_profile.m
+    ```
+    
+    
     Open matlab and run `data_parser.m` firstly and then `density_profile.m`.
 
 * EDTSurf is a binary file for linux systems.
@@ -106,3 +117,52 @@ post-processing/DP/
 * Variables `maxZheight` and `thickness` in `data_parser.m` and `density_profile.m` **must match**. Default values are 15 Å and 0.1 Å respectively, producing 150 bins.
 
 
+
+## Phonon Density of States (PDOS)
+
+This section explains how to obtain and compare the phonon density of states of water and graphene through a velocity‑autocorrelation (VACF) analysis based on a LAMMPS simulation followed by a Python spectral post‑processing.
+
+### Overview
+
+A microcanonical production run records atomic velocities every femtosecond; the resulting VACF files for water and graphene are Fourier‑transformed to yield their single‑sided amplitude spectra, which are then averaged over 100 blocks and used to compute the spectral overlap factor.
+
+### Directory Structure
+
+```python
+lammps/PDOS/
+        │
+        ├─ TERSOFF_forcefield.ff        # Forcefield
+        └─ Water‑Graph_pdos.in*         # LAMMPS inputs
+
+post‑processing/PDOS/                  
+        └─ pdos.ipynb                   # Computes DOS and overlap factor
+```
+
+### Usage
+
+1. **Run the LAMMPS simulation** (replace `X` with MPI ranks):
+
+   ```bash
+   cd lammps/PDOS
+   mpirun -np X lmp_mpi -in Water-Graph_pdos.in
+   ```
+
+   *Tip*: it's possible to start from a relaxed data structure or generate your own structure by simulating `lammps/equilibration/`. Change the `read_data` line in `Water-Graph_density.in` accordingly.
+
+2. **Compute the PDOS and spectral overlap** in Python:
+
+   ```bash
+    cd post-processing/PDOS
+    ```
+
+    Open the Jupyter notebook and run:
+
+    ```text
+    pdos.ipynb
+    ```
+
+   The notebook loads `vacf_water.{1..100}` and `vacf_graph.{1..100}`, performs the FFT, plots the averaged single‑sided spectra, and prints the overlap factor $S_{graph/water}$.
+
+
+* Required Python libraries: `numpy`, `pandas`, `scipy`, `matplotlib`.
+* Ensure all 100 VACF files are present before launching the notebook; otherwise adjust the loop range inside the first cell.
