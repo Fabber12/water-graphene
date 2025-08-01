@@ -9,7 +9,7 @@ thickness = 0.1;                    % MUST be consistent with the same variable 
 maxLayers = maxZheight/thickness; 
 
 
-    filename = '../../lammps/DP/water_graph-density.dump';
+    filename = '../../lammps/DP/water-graph_density.dump';
     fileID = fopen(filename, 'r');
     try
         for i=1:5
