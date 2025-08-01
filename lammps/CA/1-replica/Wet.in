@@ -1,0 +1,15 @@
+# ----------------- Init Section -----------------
+
+include "Wet.in.init"
+
+# ----------------- Atom Definition Section -----------------
+
+read_data "../0-replica/0_relaxed_CA.data" 
+
+# ----------------- Settings Section -----------------
+
+include "Wet.in.settings"
+
+# ----------------- Run Section -----------------
+
+include "Wet.in.run"

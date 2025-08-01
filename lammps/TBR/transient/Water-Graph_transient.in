@@ -1,0 +1,15 @@
+# ----------------- Init Section -----------------
+
+include "Water-Graph_transient.in.init"
+
+# ----------------- Atom Definition Section -----------------
+
+read_data "../equilibration/relaxed_water-graph.data"  # or e.g. read_data "systems_relaxed/relaxed_water-graph_20%.data"
+
+# ----------------- Settings Section -----------------
+
+include "Water-Graph_transient.in.settings"
+
+# ----------------- Run Section -----------------
+
+include "Water-Graph_transient.in.run"

@@ -1,0 +1,15 @@
+# ----------------- Init Section -----------------
+
+include "Water-Graph_pdos.in.init"
+
+# ----------------- Atom Definition Section -----------------
+
+read_data "../TBR/equilibration/relaxed_water-graph.data"  # or e.g. read_data "../TBR/transient/systems_relaxed/relaxed_water-graph_20%.data"
+
+# ----------------- Settings Section -----------------
+
+include "Water-Graph_pdos.in.settings"
+
+# ----------------- Run Section -----------------
+
+include "Water-Graph_pdos.in.run"

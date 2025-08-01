@@ -1,0 +1,165 @@
+# ----- Water ----- 
+import H2O_Compass.lt
+solv1 = new Water[23].move(3.0,0,0)
+                  [23].move(0,3.0,0)
+                  [24].move(0,0,3.50)
+ 
+solv2 = new Water[23].move(3.0,0,0)
+                  [23].move(0,3.0,0)
+                  [24].move(0,0,3.50)
+
+solv1[*][*][*].move(-34.65,-36.86,4.)
+solv2[*][*][*].move(-34.65,-36.86,-84.5)
+
+# ----- Graphene -----
+import GrapheneFunct.lt
+graph1 = new graphene[1][1][1]
+
+graph1[*][*][*].move(1.22802,0,0)
+graph1[*][*][*].move(-36.224101,-37.577,0)
+
+# Create a box.
+write_once("Data Boundary") {
+-36.224101 35.001290999999994 xlo xhi
+-37.577 34.741001999999999 ylo yhi
+-86.5 86.5 zlo zhi
+}
+
+  write_once("In Settings") {
+
+    bond_coeff   @bond:OH         0.9572 552.0 -1276.0 1787.0  
+    angle_coeff  @angle:HOH       104.52 46.65 -11.7 -8.79
+
+    angle_coeff  @angle:HOH bb      0.0 0.0 0.0
+    angle_coeff  @angle:HOH ba      0.0 0.0 0.0 0.0
+
+    bond_coeff   @bond:COf      1.3768 428.8798 -738.2351 1114.9655
+    bond_coeff   @bond:OHf      0.9494 540.3633 -1311.8663 2132.4446
+
+    angle_coeff  @angle:COH     108.1900 53.1250 -8.5016 0.0000
+    angle_coeff  @angle:COH bb  20.6577 1.3768 0.9494  
+    angle_coeff  @angle:COH ba  53.8614 23.9224 1.3768 0.9494  
+
+    pair_coeff   @atom:O @atom:O lj/class2/coul/long  0.08  3.84                  # compass water
+    pair_coeff   @atom:H @atom:H lj/class2/coul/long  0.008 1.087                 # compass water
+
+    pair_coeff   @atom:CA @atom:CA lj/class2/coul/long  0.0      0.0              # tersoff
+    pair_coeff   @atom:CC @atom:CC lj/class2/coul/long  0.0      0.0              # tersoff
+
+    pair_coeff   @atom:O2 @atom:O2 lj/class2/coul/long  0.0960 3.5800             # compass hydroxil
+    pair_coeff   @atom:H2 @atom:H2 lj/class2/coul/long  0.0080 1.0870             # compass hydroxil
+
+    pair_coeff   @atom:O @atom:H  lj/class2/coul/long   0.00114707 3.42134        # sixth power 
+    pair_coeff   @atom:O @atom:CA lj/class2/coul/long   0.0736323 3.87841         # sixth power
+    pair_coeff   @atom:O @atom:CC lj/class2/coul/long   0.0736323 3.87841         # sixth power
+    pair_coeff   @atom:O @atom:O2 lj/class2/coul/long   0.0857323 3.72132         # sixth power 
+    pair_coeff   @atom:O @atom:H2 lj/class2/coul/long   0.00114707 3.42134        # sixth power
+
+    pair_coeff   @atom:H @atom:CA lj/class2/coul/long   0.000997985 3.48813       # sixth power
+    pair_coeff   @atom:H @atom:CC lj/class2/coul/long   0.000997985 3.48813       # sixth power
+    pair_coeff   @atom:H @atom:O2 lj/class2/coul/long   0.00155028 3.18983        # sixth power 
+    pair_coeff   @atom:H @atom:H2 lj/class2/coul/long   0.008 1.087               # sixth power
+
+    pair_coeff   @atom:CA @atom:CC lj/class2/coul/long  0.0        0.0            # tersoff 
+    pair_coeff   @atom:CA @atom:O2 lj/class2/coul/long  0.0779716 3.76602         # sixth power
+    pair_coeff   @atom:CA @atom:H2 lj/class2/coul/long  0.000997985 3.48813       # sixth power
+
+    pair_coeff   @atom:CC @atom:O2 lj/class2/coul/long  0.0779716 3.76602         # sixth power
+    pair_coeff   @atom:CC @atom:H2 lj/class2/coul/long  0.000997985 3.48813       # sixth power
+
+    pair_coeff   @atom:O2 @atom:H2 lj/class2/coul/long  0.00155028 3.18983        # sixth power
+
+    pair_coeff * * tersoff TERSOFF_forcefield.ff NULL NULL C C NULL NULL
+
+    group graph type  @atom:CA @atom:CC @atom:O2 @atom:H2 
+    group water type  @atom:O  @atom:H
+
+  }
+
+  write_once("In Init") {
+
+    variable run  string water-graph_equilibration
+    variable temp equal 298.
+    variable steps equal 4
+    echo            log
+    log             \$\{run\}.log
+
+    # Neighbour list.
+    neighbor        2.0 bin
+    neigh_modify    check yes
+
+    # Force field definition from the water LT file.
+    boundary p p p
+
+    # -- Default styles --
+    units        real
+    atom_style   full
+    pair_style   hybrid lj/class2/coul/long 12.0 12.0 tersoff
+    special_bonds lj/coul 0 0 1
+    bond_style   class2
+    angle_style  class2
+    kspace_style pppm 0.0001
+  }
+
+write_once("In Run"){
+compute temp_water water temp
+compute temp_graph graph temp 
+
+thermo          1000
+thermo_style custom step etotal evdwl ecoul elong ebond eangle ke pe temp c_temp_water c_temp_graph &
+press vol density c_msqdis[1] c_msqdis[2] c_msqdis[3] c_msqdis[4] cpu
+thermo_modify flush yes
+
+dump 1 all custom 25000 \$\{run\}.dump id type element x y z xu yu zu vx vy vz mol
+dump_modify 1 element O H C C O H
+
+# —————————————————————————    
+# Gradual box shrinking
+# —————————————————————————    
+timestep        1.
+
+velocity        water create \$\{temp\}  391624 dist gaussian
+
+fix freeze graph setforce 0.0 0.0 0.0
+
+fix             3 water nve
+fix             4 water langevin \$\{temp\} \$\{temp\}  100 537199
+fix_modify      4 temp temp_water 
+fix             5 water deform 1 z scale .957 units box remap x
+
+
+label    cycle1
+variable i loop \$\{steps\}
+  print "*** Shrinking step \$i/\$\{steps\} ***"
+  run    50000
+  next   i
+jump SELF cycle1
+variable i delete
+
+write_data compressed_water-graph.data nocoeff
+
+# —————————————————————————————————————————————      
+# Thermalisation and relaxation (2000ps)  
+# —————————————————————————————————————————————      
+
+unfix freeze
+unfix 3
+unfix 4
+unfix 5
+
+fix 1 all box/relax iso 0.0 vmax 0.0005
+minimize 0.0 1.0e-9 5000 200000
+unfix 1
+
+fix            2 all nph aniso 1 1 1000
+fix            3 graph langevin \$\{temp\} \$\{temp\} 100 237498
+fix            4 water langevin \$\{temp\} \$\{temp\} 100 537199
+fix_modify     3 temp temp_graph
+fix_modify     4 temp temp_water
+
+run    2000000
+
+write_data relaxed_water-graph.data nocoeff
+}
+
+

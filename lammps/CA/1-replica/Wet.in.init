@@ -1,0 +1,21 @@
+variable run  string wettability_1
+variable temp equal 298.
+variable steps equal 4
+echo            log
+log             ${run}.log
+
+neighbor        2.0 bin
+neigh_modify    check yes
+
+boundary p p f
+
+units        real
+atom_style   full
+pair_style   hybrid lj/class2/coul/long 12.0 12.0 tersoff
+special_bonds lj/coul 0 0 1
+bond_style   class2
+angle_style  class2
+kspace_style pppm 0.0001
+kspace_modify slab 3.0
+
+processors * * 1

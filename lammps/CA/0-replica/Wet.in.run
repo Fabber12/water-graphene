@@ -1,0 +1,25 @@
+compute temp_water water temp
+compute press_water all pressure temp_water 
+
+write_data coupled.data nocoeff
+
+thermo          1000
+thermo_style custom step etotal evdwl ecoul elong ebond eangle ke pe temp c_temp_water &
+press c_press_water vol density cpu
+thermo_modify flush yes
+
+dump 1 all custom 25000 ${run}.dump id mol type element x y z xu yu zu vx vy vz q
+dump_modify 1 element O H C C O H 
+
+
+timestep        1.
+
+velocity        all create ${temp} 391624 dist gaussian
+
+fix zwalls all wall/reflect zlo EDGE zhi EDGE
+fix 		mom graph momentum 100 linear 1 1 1
+fix             3 all nvt temp ${temp} ${temp} 100. 
+run 1000000
+
+write_data 0_relaxed_CA.data nocoeff
+

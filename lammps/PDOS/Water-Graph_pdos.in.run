@@ -1,0 +1,44 @@
+thermo          1000
+thermo_style custom step etotal evdwl ecoul elong ebond eangle ke pe temp &
+press vol density cpu
+thermo_modify flush yes
+
+dump 1 all custom 25000 ${run}.dump id type element x y z xu yu zu vx vy vz mol
+dump_modify 1 element O H C C O H
+
+timestep        1.
+
+fix 		mom graph momentum 100 linear 1 1 1
+fix             1 all nve
+
+ variable        i loop 100
+ label           ensembleloop
+ #store initial velocity for each instance of vacf calculation
+ fix             v0save_water water store/state 10000 vx vy vz #save velocitities every 10000 steps
+ variable        v0v0_water atom f_v0save_water[1]*f_v0save_water[1]+f_v0save_water[2]*f_v0save_water[2]+f_v0save_water[3]*f_v0save_water[3]
+ fix             v0save_graph graph store/state 10000 vx vy vz #save velocitities every 10000 steps
+ variable        v0v0_graph atom f_v0save_graph[1]*f_v0save_graph[1]+f_v0save_graph[2]*f_v0save_graph[2]+f_v0save_graph[3]*f_v0save_graph[3]
+ compute         v0v0ave_water water reduce ave v_v0v0_water
+ compute         v0v0ave_graph graph reduce ave v_v0v0_graph
+
+ compute 1 water   vacf
+ compute 2 graph vacf 
+
+ variable        normvelcorr_water equal c_1[4]/c_v0v0ave_water
+ variable        normvelcorr_graph equal c_2[4]/c_v0v0ave_graph
+
+ fix vacf_water   water   ave/time 1 1 1 v_normvelcorr_water file vacf_water.$i
+ fix vacf_graph graph ave/time 1 1 1 v_normvelcorr_graph file vacf_graph.$i
+ thermo_style custom step etotal evdwl ecoul elong ebond eangle ke pe temp  &
+ press vol density v_normvelcorr_water v_normvelcorr_graph c_v0v0ave_water c_v0v0ave_graph cpu
+ run             10000
+ 
+ uncompute         v0v0ave_water
+ uncompute         v0v0ave_graph
+ uncompute 1
+ uncompute 2
+
+ next i
+ jump SELF ensembleloop
+
+
