@@ -92,7 +92,7 @@ post-processing/DP/
 2. **Generate Molecular surface**:
     ```bash
     cd post-processing/DP/MS
-    python remove_dump_lines.py N           # N : oxidation degree (e.g., 20)
+    python remove_dump_lines.py ../../../lammps/DP/water-graph_density.dump water-graph_reduced.dump N           # N : oxidation degree (e.g., 20)
     vmd -dispdev text PDB_conversion.tcl    
     ./surface-generator.sh ms 1501          # ms: molecular surface | 1501: total number of frames (i.e. total number of PBD or ply files)
     ```
