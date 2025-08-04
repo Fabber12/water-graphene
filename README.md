@@ -13,6 +13,9 @@
 <a href="https://www.matlab.com/" target="_blank">
    <img src="https://img.shields.io/badge/MATLAB-R2024b-orange" alt="Matlab R2024b" />
 </a>
+<a href="https://moltemplate.org/" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/Moltemplate-2025.3.18-lightblue?logo=gear&logoColor=white" alt="Moltemplate 2025-3-18" />
+</a>
 <a href=".github/CONTRIBUTING.md" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/contributions-open-4cb849?logo=code-of-conduct&logoColor=white" alt="Contributions welcome" />
 </a>
@@ -23,7 +26,7 @@
 </a>
 </p>
 
-Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*". Includes LAMMPS input files and post-processing scripts (Python, MATLAB)
+Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*". Includes LAMMPS input files (some generated via Moltemplate) and post-processing scripts (Python, MATLAB)
  
 
 ## Contents
@@ -146,7 +149,7 @@ post-processing/DP/
 > - EDTSurf is a binary file for Linux systems.
 > - If you want to speed up `surface-generator.sh` use `surface-generator_parallel.sh`. Be sure to have `GNU parallel` installed.
 > - Running `data_parser.m` **before** `density_profile.m` is mandatory, otherwise the particle count file will be missing.
-> - Variables `maxZheight` and `thickness` in `data_parser.m` and `density_profile.m` **must match**. Default values are 15 Å and 0.1 Å respectively, producing 150 bins.
+> - Variables `maxZheight` and `thickness` in `data_parser.m` and `density_profile.m` **must match**. Default values are 15 Å and 0.1 Å respectively, producing 150 bins.
 
 
 
@@ -203,7 +206,7 @@ post-processing/PDOS/
 
 ## Thermal Boundary Resistance (TBR)
 
-This section explains how to set up LAMMPS runs that yield the raw quantities required to determine the Kapitza resistance at the graphene–water interface.
+This section explains how to set up LAMMPS runs that yield the raw quantities required to determine the Kapitza resistance at the water-graphene oxide interface.
 
 ### Overview
 
@@ -257,4 +260,5 @@ lammps/TBR/
    mpirun -np X lmp_mpi -in Water-Graph_transient.in
    ```
 > Notes
+> - A Moltemplate installation is required.
 > - It's possible to skip `1. Build the system` by using one of the ready-made files in `lammps/equilibration/systems_relaxed/`, where all the systems analysed in this study are available.
