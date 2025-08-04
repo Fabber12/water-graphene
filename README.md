@@ -68,7 +68,7 @@ lammps/CA/
 
 ### Usage
 
-1. Navigate into `lammps/CA/0-replica/` and run LAMMPS simulations (replace `X` with MPI ranks):
+1. Navigate into `lammps/CA/0-replica/` and modify `Wet.in` by adjusting the `Atom Definition Section`. Then run LAMMPS simulations (replace `X` with MPI ranks):
 
    ```bash
    mpirun -np X lmp_mpi -in Wet.in
