@@ -1,8 +1,36 @@
-# Water-Graphene
+<h1 align="center">Water - Graphene Oxide</h1>
+
+<p align="center">
+<a href="https://www.nature.com/articles/sdata201618" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/data-FAIR-blue?logo=database&logoColor=white" alt="FAIR data" />
+</a>
+<a href="https://python.org" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/Python-3.11%2B-blue?logo=python&logoColor=white" alt="Python 3.11+" />
+</a>
+<a href="https://www.linux.org/" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/OS-Linux-orange?logo=linux&logoColor=white" alt="Linux" />
+</a>
+<a href=".github/CONTRIBUTING.md" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/contributions-open-4cb849?logo=code-of-conduct&logoColor=white" alt="Contributions welcome" />
+</a>
+</p>
+<p align="center">
+<a href="LICENSE" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/license-CC--BY%204.0-lightgray?logo=law&logoColor=white" alt="License CC-BY 4.0" />
+</a>
+</p>
+
 Data and analysis scripts associated with the publication “Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation”. Includes LAMMPS input files and post-processing scripts (Python, MATLAB)
 
 
+
 <p style="color: orange; font-size: small;"><em>For clarity, all paths used with the <code>cd</code> command in this guide should be interpreted as absolute.</em></p> 
+
+## Contents
+- [Contact Angle (CA)](#contact-angle-ca)
+- [Density Profile (DP)](#density-profile-dp)
+- [Phonon DOS (PDOS)](#phonon-density-of-states-pdos)
+- [Thermal Boundary Resistance (TBR)](#thermal-boundary-resistance-tbr)
 
 ---
 ## Contact Angle (CA)
@@ -15,7 +43,7 @@ A series of three replica simulations (`0-replica`, `1-replica`, `2-replica`) ar
 
 ### Directory Structure
 
-```python
+```bash
 lammps/CA/
         ├── relaxed_graph/              # Pre-simulated relaxed graphene structures at various oxidation degree
         |
@@ -43,12 +71,13 @@ lammps/CA/
 2. Repeat for `1-replica` and `2-replica` in sequence.
 3. Post-process .dump output files by running MATLAB scripts:
     
-    ```python
+    ```bash
     post-processing/CA/
                     ├── CA_data_parser.m         # Reads dump files from lammps/CA/*-replica/, produces wet_*.mat 
                     └── CA_trend.m               # Loads wet_*.mat, compute CA mean ± SE, and plot trend with error bars
     ```
-* Ensure that each simulation completes before invoking MATLAB scripts to guarantee all data is available for analysis.
+> Notes
+> - Ensure that each simulation completes before invoking MATLAB scripts to guarantee all data is available for analysis.
 
 
 
@@ -63,7 +92,7 @@ The trajectory (.dump) is first binned along the surface-normal axis—using mol
 
 ### Directory Structure
 
-```python
+```bash
 lammps/DP/
         ├─ TERSOFF_forcefield.ff                 # Forcefield
         └─ Water-Graph_density.in*               # LAMMPS input files
@@ -114,10 +143,11 @@ post-processing/DP/
     
     Open matlab and run `data_parser.m` firstly and then `density_profile.m`.
 
-* EDTSurf is a binary file for linux systems.
-* If you want to speed up `surface-generator.sh` use `surface-generator_parallel.sh`. Be sure to have `GNU parallel` installed.
-* Running `data_parser.m` **before** `density_profile.m` is mandatory, otherwise the counters file will be missing.
-* Variables `maxZheight` and `thickness` in `data_parser.m` and `density_profile.m` **must match**. Default values are 15 Å and 0.1 Å respectively, producing 150 bins.
+> Notes
+> - EDTSurf is a binary file for linux systems.
+> - If you want to speed up `surface-generator.sh` use `surface-generator_parallel.sh`. Be sure to have `GNU parallel` installed.
+> - Running `data_parser.m` **before** `density_profile.m` is mandatory, otherwise the counters file will be missing.
+> - Variables `maxZheight` and `thickness` in `data_parser.m` and `density_profile.m` **must match**. Default values are 15 Å and 0.1 Å respectively, producing 150 bins.
 
 
 
@@ -131,7 +161,7 @@ A microcanonical production run records atomic velocities every femtosecond; the
 
 ### Directory Structure
 
-```python
+```bash
 lammps/PDOS/
         ├─ TERSOFF_forcefield.ff        # Forcefield
         └─ Water‑Graph_pdos.in*         # LAMMPS input files
@@ -165,24 +195,24 @@ post‑processing/PDOS/
 
    The notebook loads `vacf_water.{1..100}` and `vacf_graph.{1..100}`, performs the FFT, plots the averaged single‑sided spectra, and prints the overlap factor $S_{graph/water}$.
 
-
-* Required Python libraries: `numpy`, `pandas`, `scipy`, `matplotlib`.
-* Ensure all 100 VACF files are present before launching the notebook; otherwise adjust the loop range inside the first cell.
+> Notes
+> - Required Python libraries: `numpy`, `pandas`, `scipy`, `matplotlib`.
+> - Ensure all 100 VACF files are present before launching the notebook; otherwise adjust the loop range inside the first cell.
 
 
 
 
 ## Thermal Boundary Resistance (TBR)
 
-This section details how to evaluate the Kapitza resistance at the graphene–water interface, combining a nonequilibrium LAMMPS transient run with a Python notebook that converts total energy and temperature‑profile data into $R_K$.
+This section explains how to set up equilibration → transient LAMMPS runs that yield the raw quantities required to determine the Kapitza resistance  at the graphene–water interface.  Post‑processing is left to the user.
 
 ### Overview
 
-A graphene sheet—pristine or hydroxyl‑functionalised at a chosen oxidation level—is first equilibrated in contact with liquid water; the relaxed configuration then undergoes a transient NVE simulation where an imposed heat flux produces a temperature discontinuity across the interface, from which the Kapitza resistance is extracted.
+A pristine graphene sheet is functionalised with a user‑defined fraction of hydroxyl groups using `add_OH.m`. The functionalised sheet and a water slab are merged and equilibrated to produce a relaxed configuration. The relaxed system is run in NVE with heat flux imposed.
 
 ### Directory Structure
 
-```python
+```bash
 lammps/TBR/
         ├─ graphene.lt                     # Base graphene lattice (pristine)
         ├─ add_OH.m                        # Adds OH groups to graphene sheet
@@ -210,7 +240,7 @@ lammps/TBR/
    ```
    add_OH.m
    ```
-2. **Equilibrate the system** (water - graphene oxide)
+2. **Equilibrate the system**
    ```bash
    cd lammps/TBR/equilibration
    ```
@@ -228,4 +258,5 @@ lammps/TBR/
    # edit read_data command in `Water-Graph_transient.in`
    mpirun -np X lmp_mpi -in Water-Graph_transient.in
    ```
-* If you skip step 1, simply use one of the ready‑made files in `lammps/equilibration/systems_relaxed/`, 7 systems analysed in this study are available.
+> Notes
+> - If you skip step 1, simply use one of the ready‑made files in `lammps/equilibration/systems_relaxed/`, 7 systems analysed in this study are available.
