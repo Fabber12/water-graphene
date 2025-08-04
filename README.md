@@ -217,7 +217,7 @@ A pristine graphene sheet is functionalised with a user-defined fraction of hydr
 ```bash
 lammps/TBR/
         ├─ graphene.lt                     # Base graphene lattice (pristine)
-        ├─ add_OH.m                        # Adds OH groups to graphene sheet
+        ├─ add_OH.m                        # Adds -OH groups to graphene sheet
         │
         ├─ equilibration/                  # Equilibrates water-graphene oxide system
         │   ├─ H2O_Compass.lt                   # COMPASS water model
@@ -238,7 +238,7 @@ lammps/TBR/
    ```bash
    cd lammps/TBR
    ```
-   Open MATLAB, select the desired percentage of hydroxyl (–OH) groups to populate the graphene sheet, and run the simulation:
+   Open MATLAB, select the desired percentage of –OH groups to populate the graphene sheet, and run the simulation:
    ```
    add_OH.m
    ```
