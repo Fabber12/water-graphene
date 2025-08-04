@@ -36,18 +36,18 @@ tic
 
 %% Settings
 dir_path="./";
-oxiperc = ; %oxidation percentage 
+oxiperc = 20;                           % Oxidation percentage (e.g 20) 
 
-qCC = 0.265; %charge: atom bound with OH group
-qO2 = -0.683; %charge: Oxygen of OH group
-qH2 = 0.418; %charge: Hydrogen of OH group
+qCC = 0.265;                            % Charge: atom bound with OH group
+qO2 = -0.683;                           % Charge: Oxygen of OH group
+qH2 = 0.418;                            % Charge: Hydrogen of OH group
 
-N = 1972; %number of graphene atoms
-XX = round(oxiperc*N/100);  % Number of functionalized atoms
+N = 1972;                               % Number of graphene atoms
+XX = round(oxiperc*N/100);              % Number of functionalized atoms
 
 %% Tmp files
 graphene_lt = fullfile(dir_path, "graphene.lt");
-modified_graphene_lt=fullfile(dir_path, "thermalization/GrapheneFunct.lt");
+modified_graphene_lt=fullfile(dir_path, "equilibration/GrapheneFunct.lt");
 Bonds_generation = fullfile(dir_path, "DataBonds.txt");
 anglesCOH_txt = fullfile(dir_path, "DataAngles.txt");
 atomC_txt = fullfile(dir_path, "atomC.txt"); 
