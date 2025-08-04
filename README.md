@@ -4,11 +4,14 @@
 <a href="https://www.nature.com/articles/sdata201618" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/data-FAIR-blue?logo=database&logoColor=white" alt="FAIR data" />
 </a>
+<a href="https://www.linux.org/" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/OS-Linux-orange?logo=linux&logoColor=white" alt="Linux" />
+  </a>
 <a href="https://python.org" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/Python-3.11%2B-blue?logo=python&logoColor=white" alt="Python 3.11+" />
 </a>
-<a href="https://www.linux.org/" target="_blank">
-  <img src="https://custom-icon-badges.demolab.com/badge/OS-Linux-orange?logo=linux&logoColor=white" alt="Linux" />
+<a href="https://www.matlab.com/" target="_blank">
+   <img src="https://img.shields.io/badge/MATLAB-R2024b-orange" alt="Matlab R2024b" />
 </a>
 <a href=".github/CONTRIBUTING.md" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/contributions-open-4cb849?logo=code-of-conduct&logoColor=white" alt="Contributions welcome" />
