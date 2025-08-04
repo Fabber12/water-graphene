@@ -1,6 +1,10 @@
 # Water-Graphene
 Data and analysis scripts associated with the publication “Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation”. Includes LAMMPS input files and post-processing scripts (Python, MATLAB)
 
+
+<p style="color: orange; font-size: small;"><em>For clarity, all paths used with the <code>cd</code> command in this guide should be interpreted as absolute.</em></p> 
+
+---
 ## Contact Angle (CA)
 
 This section describes the workflow to compute the water–graphene contact angle via LAMMPS simulations and MATLAB post-processing.
@@ -43,7 +47,6 @@ lammps/CA/
     post-processing/CA/
                     ├── CA_data_parser.m         # Reads dump files from lammps/CA/*-replica/, produces wet_*.mat 
                     └── CA_trend.m               # Loads wet_*.mat, compute CA mean ± SE, and plot trend with error bars
-
     ```
 * Ensure that each simulation completes before invoking MATLAB scripts to guarantee all data is available for analysis.
 
@@ -62,20 +65,20 @@ The trajectory (.dump) is first binned along the surface-normal axis—using mol
 
 ```python
 lammps/DP/
-        ├─ TERSOFF_forcefield.ff            # Forcefield
-        └─ Water-Graph_density.in*          # LAMMPS input files
+        ├─ TERSOFF_forcefield.ff                 # Forcefield
+        └─ Water-Graph_density.in*               # LAMMPS input files
 
 post-processing/DP/
-                ├─ MS/                      # Molecular surface generation
+                ├─ MS/                           # Molecular surface generation
                 |   ├─ remove_dump_lines.py             # Removes water molecules from .dump file
                 |   ├─ PDB_conversion.tcl               # Converts .dump file single frames PDB files
                 |   ├─ EDTSurf                          # Software used in surface-generator.sh (see https://zhanggroup.org/EDTSurf/)
                 |   ├─ surface-generator.sh             # Generates .ply 3D molecular surfaces 
                 |   └─ (surface-generator_parallel.sh)  # Generates .ply 3D molecular surfaces (with `GNU parallel`)
                 │
-                ├─ data_parser.m            # Counts particles between bins for each frame
-                ├─ density_profile.m        # Plots water density profile
-                └─ fastPlyRead.m            # Matlab function to read ply files
+                ├─ data_parser.m                 # Counts particles between bins for each frame
+                ├─ density_profile.m             # Plots water density profile
+                └─ fastPlyRead.m                 # Matlab function to read ply files
 ```
 
 ### Usage
@@ -165,3 +168,64 @@ post‑processing/PDOS/
 
 * Required Python libraries: `numpy`, `pandas`, `scipy`, `matplotlib`.
 * Ensure all 100 VACF files are present before launching the notebook; otherwise adjust the loop range inside the first cell.
+
+
+
+
+## Thermal Boundary Resistance (TBR)
+
+This section details how to evaluate the Kapitza resistance at the graphene–water interface, combining a nonequilibrium LAMMPS transient run with a Python notebook that converts total energy and temperature‑profile data into $R_K$.
+
+### Overview
+
+A graphene sheet—pristine or hydroxyl‑functionalised at a chosen oxidation level—is first equilibrated in contact with liquid water; the relaxed configuration then undergoes a transient NVE simulation where an imposed heat flux produces a temperature discontinuity across the interface, from which the Kapitza resistance is extracted.
+
+### Directory Structure
+
+```python
+lammps/TBR/
+        ├─ graphene.lt                     # Base graphene lattice (pristine)
+        ├─ add_OH.m                        # Adds OH groups to graphene sheet
+        │
+        ├─ equilibration/                  # Equilibrates water - graphene oxide system
+        │   ├─ H2O_Compass.lt                   # COMPASS water model
+        │   └─ Water-Graph_equilibration.lt     # Generates LAMMPS input files to run the simulation 
+        │
+        └─ transient/                      # Production run to evaluate the Kapitza resistance
+            ├─ systems_relaxed/                 
+            │   └─ relaxed_water-graph_*.data         # Pre‑relaxed data files (oxidation (%): 0,5,10,20,40,60,80)
+            │
+            ├─ Water-Graph_transient.in*         # LAMMPS input files
+            └─ TERSOFF_forcefield.ff             # Forcefield
+```
+
+### Usage
+
+1. **Build the system**
+
+   ```bash
+   cd lammps/TBR
+   ```
+   Open MATLAB, select the desired percentage of hydroxyl (–OH) groups to populate the graphene sheet, and run the simulation:
+   ```
+   add_OH.m
+   ```
+2. **Equilibrate the system** (water - graphene oxide)
+   ```bash
+   cd lammps/TBR/equilibration
+   ```
+      ```bash
+   moltemplate Water-Graph_equilibration.lt
+   ```
+   ```bash
+   mpirun -np X lmp_mpi -in Water-Graph_equilibration.in
+   ```
+
+3. **Run the transient heat‑flux simulation**:
+
+   ```bash
+   cd lammps/TBR/transient
+   # edit read_data command in `Water-Graph_transient.in`
+   mpirun -np X lmp_mpi -in Water-Graph_transient.in
+   ```
+* If you skip step 1, simply use one of the ready‑made files in `lammps/equilibration/systems_relaxed/`, 7 systems analysed in this study are available.
