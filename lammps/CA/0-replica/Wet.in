@@ -5,9 +5,9 @@ include "Wet.in.init"
 # ----------------- Atom Definition Section -----------------
 
 read_data "water_box.data" extra/atom/types 4 extra/bond/types 2 extra/angle/types 1 
-read_data "../relaxed_graph/relaxed_graph_20%.data" add append offset 2 1 1 0 0 shift 0.0 0.0 -4.0    
+read_data "../relaxed_graph/relaxed_graph_20%.data" add append offset 2 1 1 0 0 shift 0.0 0.0 Zshift    
 
-##!IMPORTANT!## adapt 'Zshift' to the system: we chose Zshift=[0.0, -3.0, -4.0, -4.0, -3.0, -11.0, -11.0] for 0,5,10,20,40,60,80% respectively.
+##!IMPORTANT!## adapt 'Zshift' to the system: we chose Zshift=[0.0, -3.0, -4.0, -4.0, -3.0, -11.0, -11.0] for 0,5,10,20,40,60,80% respectively, ensuring no atoms overlap.
 
 # ----------------- Settings Section -----------------
 
