@@ -10,13 +10,13 @@
 % Workflow:
 %    1. Set processing parameters:
 %         • dir_path: folder containing input/output files 
-%         • oxiperc: percentage of C atoms to functionalize (0–100)
+%         • oxid: percentage of C atoms to functionalize (0–100)
 %         • qCC, qO2, qH2: partial charges for C–OH, O, and H atoms
 %         • N: total number of C atoms in the graphene sheet
 %    2. Copy the original file and locate the “Data Atoms” section.
 %    3. Parse the atom coordinates, types, and charges.
 %    4. Compute neighbor distances (k, l) and generate the graphene bond list.
-%    5. Randomly pick exactly XX = round(oxiperc/100 * N) carbon atoms,  
+%    5. Randomly pick exactly XX = round(oxid/100 * N) carbon atoms,  
 %         ensuring –OH groups are uniformly distributed.
 %    6. For each selected atom:
 %         • Assign new C–OH charge/type  
@@ -26,7 +26,7 @@
 %    8. Clean up all temporary files.
 %
 % Usage:
-%    Adjust the parameters at the top (dir_path, oxiperc, ...) then
+%    Adjust the parameters at the top (dir_path, oxid, ...) then
 %    run this script. The output “GrapheneFunct.lt” will include the original
 %    lattice plus added –OH groups ready for subsequent simulation steps.
 
@@ -36,14 +36,14 @@ tic
 
 %% Settings
 dir_path="./";
-oxiperc = 20;                           % Oxidation percentage (e.g 20) 
+oxid = 20;                           % Oxidation percentage (e.g 20) 
 
 qCC = 0.265;                            % Charge: atom bound with OH group
 qO2 = -0.683;                           % Charge: Oxygen of OH group
 qH2 = 0.418;                            % Charge: Hydrogen of OH group
 
 N = 1972;                               % Number of graphene atoms
-XX = round(oxiperc*N/100);              % Number of functionalized atoms
+XX = round(oxid*N/100);              % Number of functionalized atoms
 
 %% Tmp files
 graphene_lt = fullfile(dir_path, "graphene.lt");
