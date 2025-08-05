@@ -50,7 +50,7 @@ A series of three replica simulations (`0-replica`, `1-replica`, `2-replica`) ar
 
 ```bash
 lammps/CA/
-        ├── relaxed_graph/              # Pre-simulated relaxed graphene structures at various oxidation degrees
+        ├── relaxed_graph/              # Pre-equilibrated relaxed graphene structures at various oxidation degrees
         |
         ├── 0-replica/                  # Base simulation folder
         |   ├── TERSOFF_forcefield.ff       # Forcefield
@@ -126,7 +126,7 @@ post-processing/DP/
 
    *Note*: it's possible to use a pre-equilibrated system (available in `lammps/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/TBR/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_density.in` accordingly.
 
-2. **Generate Molecular surface**:
+2. **Generate molecular surface**:
     ```bash
     cd post-processing/DP/MS
     python remove_dump_lines.py ../../../lammps/DP/water-graph_density.dump water-graph_reduced.dump N           # N : oxidation degree (e.g., 20)
@@ -183,7 +183,7 @@ post-processing/PDOS/
 
    *Note*: it's possible to use a pre-equilibrated system (available in `lammps/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/TBR/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_pdos.in` accordingly
 
-2. **Compute the PDOS and spectral overlap** in Python:
+2. **Compute the PDOS and spectral overlap**:
 
    ```bash
     cd post-processing/PDOS
