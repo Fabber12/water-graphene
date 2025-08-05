@@ -257,9 +257,9 @@ lammps/TBR/
 3. **Launch the production run**:
    ```bash
    cd lammps/TBR/transient
-   # edit the read_data command in `Water-Graph_transient.in`
    mpirun -np X lmp_mpi -in Water-Graph_transient.in
    ```
 > Notes
 > - A Moltemplate installation is required.
-> - It's possible to skip `1. Build the system` by using one of the ready-made files in `lammps/transient/systems_relaxed/`, where all the systems analysed in this study are available.
+> - Steps **1.** and **2.** can be skipped by using one of the pre-equilibrated systems available in `lammps/transient/systems_relaxed/`, which contains all the configurations analyzed in this study. In this case edit the read_data command in `Water-Graph_transient.in` 
+
