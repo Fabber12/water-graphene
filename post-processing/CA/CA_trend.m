@@ -46,8 +46,10 @@ num = 0;
 for ii = num_el:length(CA_vec)
     num = num+CA_dev_vec(ii)^2*(ni-1)+ni*(CA_vec(ii)-ref_value)^2;
 end
-error_bar = sqrt(num/denom)
-
+error_bar = sqrt(num/denom);
+if error_bar > 20
+    warning('ContactAngle:highUncertainty', 'Contact angle uncertainty is high: %.1f°.\nAverage contact angle may be unreliable.\n',error_bar)
+end
 
 for ii = 1:length(CA_vec)
     plot([ii,ii],[CA_vec(ii)+CA_dev_vec(ii),CA_vec(ii)-CA_dev_vec(ii)],'-c')
@@ -59,8 +61,8 @@ grid on
 hold all
 legend(['Errorbar: ',num2str(error_bar),'°'])
 title('Wettability')
-ylabel('Angolo (°)')
+ylabel('Angle (°)')
 
 T = table(CA_vec, CA_dev_vec, 'VariableNames', { 'CA', 'std'} );
-writetable(T, 'wet_0oxid.txt')
+%writetable(T, 'wet.txt')
 

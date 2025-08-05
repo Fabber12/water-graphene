@@ -1,17 +1,21 @@
 clear all
 close all
 
+tic
+enable_plotting = false;
+
 for replica=0:2
 
-    filename_dump = sprintf('../../lammps/CA/%d-replica/wettability_%d.dump', replica,replica);
-    filename_txt = sprintf('../../lammps/CA/%d-replica/wettability_%d.txt', replica,replica);
+    filename_dump = sprintf('../../lammps/CA_test/%d-replica/wettability_%d.dump', replica,replica);
+    filename_txt = sprintf('../../lammps/CA_test/%d-replica/wettability_%d.txt', replica,replica);
     movefile(filename_dump, filename_txt)
     
     data_tot = readtable(filename_txt,'ReadVariableNames',false);
-    
+    movefile(filename_txt, filename_dump)
+
     data_tot(:,"Var15") = [];
     data_tot(:,"Var16") = [];
-    data_tot = data_tot(:, {'Var1', 'Var2', 'Var3','Var14', 'Var5', 'Var6', 'Var7', 'Var8', 'Var9', 'Var10', 'Var11', 'Var12', 'Var13'})
+    data_tot = data_tot(:, {'Var1', 'Var2', 'Var3','Var14', 'Var5', 'Var6', 'Var7', 'Var8', 'Var9', 'Var10', 'Var11', 'Var12', 'Var13'});
     data_tot(:,"Var8") = [];
     data_tot(:,"Var9") = [];
     data_tot(:,"Var10") = [];
@@ -43,14 +47,14 @@ for replica=0:2
     
     for rr = 1:length(index)
         
-        clearvars -except rr data_tot index tot
+        clearvars -except rr data_tot index tot replica enable_plotting
     
         qq = linspace(0.07,0.1,20)';
         contact_angle_global = zeros(size(qq,1),3); 
         
         for pp = 1:size(qq,1)
         
-            clearvars -except contact_angle_global pp qq rr data_tot index tot 
+            clearvars -except contact_angle_global pp qq rr data_tot index tot replica enable_plotting
         
             data = tot(rr).data;
             num_atoms = size(data,1);
@@ -83,7 +87,7 @@ for replica=0:2
             coord_mean_2 = data_solv(1,7);
             ii = 1;
             flag = 1;
-           
+            
             while abs(coord_mean_1-coord_mean_2)>0.01
                 ii = ii+1;
                 if ii>size(data_pol,1) || ii>size(data_solv,1)
@@ -405,9 +409,9 @@ for replica=0:2
             dr = radius_2-radius_1;
             
             if dr<0
-              CA_tan = rad2deg(atan(abs(dz/dr))); 
+                CA_tan = rad2deg(atan(abs(dz/dr))); 
             else
-              CA_tan = 180-rad2deg(atan(dz/dr));
+                CA_tan = 180-rad2deg(atan(dz/dr));
             end
             
             contact_angle_global(pp,1) = CA_tan;
@@ -426,7 +430,7 @@ for replica=0:2
         elseif flag == 0 
             CA_tan_fin = 90;
         end
-     
+    
         if flag == 1
             tot(rr).CA_min = min(CA_tan);
             tot(rr).CA_max = max(CA_tan);
@@ -445,153 +449,154 @@ for replica=0:2
         tot(rr).y_pol = data_pol(:,6);
         tot(rr).z_pol = data_pol(:,7);
         
-        if flag == 0
-            rr
-            figure (7*(rr-1)+1)
-            plot3(data_pol(:,5),data_pol(:,6),data_pol(:,7),'b.','MarkerSize',10)
-            hold all
-            plot3(data_solv(:,5),data_solv(:,6),data_solv(:,7),'r.','MarkerSize',10)
-        else
-            if (rr == 10 || rr == 20 || rr == 40)
+        if enable_plotting
+            if flag == 0
                 rr
                 figure (7*(rr-1)+1)
-                semilogy(interface_1(:,1),interface_1(:,6))
-                grid on
-                hold all
-                semilogy(interface_1(:,1),filtered_1)
-                hold all
-                semilogy(interface_1(:,1),ref_value_1*ones(size(interface_1,1),1))
-                figure (7*(rr-1)+2)
-                plot(interface_1(:,1),interface_1(:,6))
-                grid on
-                hold all
-                plot(interface_1(:,1),filtered_1)
-                hold all
-                plot(interface_1(:,1),ref_value_1*ones(size(interface_1,1),1))
-                hold all
-                plot(interface_1(:,1),ref_value_1_1*ones(size(interface_1,1),1))
-                hold all
-                plot(interface_1(:,1),ref_value_1_2*ones(size(interface_1,1),1))
-                hold all
-                if radius_1_1 ~= 0
-                    plot([radius_1_1,radius_1_1],[0.01,0.06])
-                    hold all
-                    plot([radius_1_2,radius_1_2],[0.01,0.06])
-                end
-                
-                figure (7*(rr-1)+3)
-                semilogy(interface_2(:,1),interface_2(:,6))
-                grid on
-                hold all
-                semilogy(interface_2(:,1),filtered_2)
-                hold all
-                semilogy(interface_2(:,1),ref_value_2*ones(size(interface_2,1),1))
-                figure (7*(rr-1)+4)
-                plot(interface_2(:,1),interface_2(:,6))
-                grid on
-                hold all
-                plot(interface_2(:,1),filtered_2)
-                hold all
-                plot(interface_2(:,1),ref_value_2*ones(size(interface_2,1),1))
-                hold all
-                plot(interface_2(:,1),ref_value_2_1*ones(size(interface_2,1),1))
-                hold all
-                plot(interface_2(:,1),ref_value_2_2*ones(size(interface_2,1),1))
-                hold all
-                if radius_2_1 ~= 0
-                    plot([radius_2_1,radius_2_1],[0.01,0.06])
-                    hold all
-                    plot([radius_2_2,radius_2_2],[0.01,0.06])
-                end
-                
-                figure (7*(rr-1)+5)
-                semilogy(interface_3(:,1),interface_3(:,6))
-                grid on
-                hold all
-                semilogy(interface_3(:,1),filtered_3)
-                hold all
-                semilogy(interface_3(:,1),ref_value_3*ones(size(interface_3,1),1))
-                figure (7*(rr-1)+6)
-                plot(interface_3(:,1),interface_3(:,6))
-                grid on
-                hold all
-                plot(interface_3(:,1),filtered_3)
-                hold all
-                plot(interface_3(:,1),ref_value_3*ones(size(interface_3,1),1))
-                
-                x_min = min(data(:,5));
-                x_max = max(data(:,5));
-                y_min = min(data(:,6));
-                y_max = max(data(:,6));
-                z_min = min(data(:,7));
-                z_max = max(data(:,7));
-                
-                figure (7*(rr-1)+7)
                 plot3(data_pol(:,5),data_pol(:,6),data_pol(:,7),'b.','MarkerSize',10)
                 hold all
                 plot3(data_solv(:,5),data_solv(:,6),data_solv(:,7),'r.','MarkerSize',10)
-                hold all
-                plot3(ones(2,1)*center_x,ones(2,1)*center_y,[coord_mean/2,z_max*1.1],'b-*')
-                hold all
-                plot3([x_min,x_max],[y_min,y_max],lim_1*ones(2,1),'m-*')
-                hold all
-                plot3([x_min,x_max],[y_max,y_min],lim_1*ones(2,1),'m-*')
-                hold all
-                plot3([x_min,x_max],[y_min,y_max],lim_2*ones(2,1),'c-*')
-                hold all
-                plot3([x_min,x_max],[y_max,y_min],lim_2*ones(2,1),'c-*')
-                hold all
-                plot3([x_min,x_max],[y_min,y_max],lim_3*ones(2,1),'c-*')
-                hold all
-                plot3([x_min,x_max],[y_max,y_min],lim_3*ones(2,1),'c-*')
-                hold all
-                plot3([x_min,x_max],[y_min,y_max],lim_4*ones(2,1),'y-*')
-                hold all
-                plot3([x_min,x_max],[y_max,y_min],lim_4*ones(2,1),'y-*')
-                hold all
-                plot3([x_min,x_max],[y_min,y_max],(temp_2(end,1))*ones(2,1),'b-*')
-                hold all
-                plot3([x_min,x_max],[y_max,y_min],(temp_2(end,1))*ones(2,1),'b-*')
-                hold all
-                plot3([x_min,x_max],[y_min,y_max],(coord_mean)*ones(2,1),'g-*')
-                hold all
-                plot3([x_min,x_max],[y_max,y_min],(coord_mean)*ones(2,1),'g-*')
-                hold all
+            else
+                if (rr == 10 || rr == 20 || rr == 40)
+                    rr
+                    figure (7*(rr-1)+1)
+                    semilogy(interface_1(:,1),interface_1(:,6))
+                    grid on
+                    hold all
+                    semilogy(interface_1(:,1),filtered_1)
+                    hold all
+                    semilogy(interface_1(:,1),ref_value_1*ones(size(interface_1,1),1))
+                    figure (7*(rr-1)+2)
+                    plot(interface_1(:,1),interface_1(:,6))
+                    grid on
+                    hold all
+                    plot(interface_1(:,1),filtered_1)
+                    hold all
+                    plot(interface_1(:,1),ref_value_1*ones(size(interface_1,1),1))
+                    hold all
+                    plot(interface_1(:,1),ref_value_1_1*ones(size(interface_1,1),1))
+                    hold all
+                    plot(interface_1(:,1),ref_value_1_2*ones(size(interface_1,1),1))
+                    hold all
+                    if radius_1_1 ~= 0
+                        plot([radius_1_1,radius_1_1],[0.01,0.06])
+                        hold all
+                        plot([radius_1_2,radius_1_2],[0.01,0.06])
+                    end
+                    
+                    figure (7*(rr-1)+3)
+                    semilogy(interface_2(:,1),interface_2(:,6))
+                    grid on
+                    hold all
+                    semilogy(interface_2(:,1),filtered_2)
+                    hold all
+                    semilogy(interface_2(:,1),ref_value_2*ones(size(interface_2,1),1))
+                    figure (7*(rr-1)+4)
+                    plot(interface_2(:,1),interface_2(:,6))
+                    grid on
+                    hold all
+                    plot(interface_2(:,1),filtered_2)
+                    hold all
+                    plot(interface_2(:,1),ref_value_2*ones(size(interface_2,1),1))
+                    hold all
+                    plot(interface_2(:,1),ref_value_2_1*ones(size(interface_2,1),1))
+                    hold all
+                    plot(interface_2(:,1),ref_value_2_2*ones(size(interface_2,1),1))
+                    hold all
+                    if radius_2_1 ~= 0
+                        plot([radius_2_1,radius_2_1],[0.01,0.06])
+                        hold all
+                        plot([radius_2_2,radius_2_2],[0.01,0.06])
+                    end
+                    
+                    figure (7*(rr-1)+5)
+                    semilogy(interface_3(:,1),interface_3(:,6))
+                    grid on
+                    hold all
+                    semilogy(interface_3(:,1),filtered_3)
+                    hold all
+                    semilogy(interface_3(:,1),ref_value_3*ones(size(interface_3,1),1))
+                    figure (7*(rr-1)+6)
+                    plot(interface_3(:,1),interface_3(:,6))
+                    grid on
+                    hold all
+                    plot(interface_3(:,1),filtered_3)
+                    hold all
+                    plot(interface_3(:,1),ref_value_3*ones(size(interface_3,1),1))
+                    
+                    x_min = min(data(:,5));
+                    x_max = max(data(:,5));
+                    y_min = min(data(:,6));
+                    y_max = max(data(:,6));
+                    z_min = min(data(:,7));
+                    z_max = max(data(:,7));
+                    
+                    figure (7*(rr-1)+7)
+                    plot3(data_pol(:,5),data_pol(:,6),data_pol(:,7),'b.','MarkerSize',10)
+                    hold all
+                    plot3(data_solv(:,5),data_solv(:,6),data_solv(:,7),'r.','MarkerSize',10)
+                    hold all
+                    plot3(ones(2,1)*center_x,ones(2,1)*center_y,[coord_mean/2,z_max*1.1],'b-*')
+                    hold all
+                    plot3([x_min,x_max],[y_min,y_max],lim_1*ones(2,1),'m-*')
+                    hold all
+                    plot3([x_min,x_max],[y_max,y_min],lim_1*ones(2,1),'m-*')
+                    hold all
+                    plot3([x_min,x_max],[y_min,y_max],lim_2*ones(2,1),'c-*')
+                    hold all
+                    plot3([x_min,x_max],[y_max,y_min],lim_2*ones(2,1),'c-*')
+                    hold all
+                    plot3([x_min,x_max],[y_min,y_max],lim_3*ones(2,1),'c-*')
+                    hold all
+                    plot3([x_min,x_max],[y_max,y_min],lim_3*ones(2,1),'c-*')
+                    hold all
+                    plot3([x_min,x_max],[y_min,y_max],lim_4*ones(2,1),'y-*')
+                    hold all
+                    plot3([x_min,x_max],[y_max,y_min],lim_4*ones(2,1),'y-*')
+                    hold all
+                    plot3([x_min,x_max],[y_min,y_max],(temp_2(end,1))*ones(2,1),'b-*')
+                    hold all
+                    plot3([x_min,x_max],[y_max,y_min],(temp_2(end,1))*ones(2,1),'b-*')
+                    hold all
+                    plot3([x_min,x_max],[y_min,y_max],(coord_mean)*ones(2,1),'g-*')
+                    hold all
+                    plot3([x_min,x_max],[y_max,y_min],(coord_mean)*ones(2,1),'g-*')
+                    hold all
+                    
+                    circle_x = linspace((-radius_1),(radius_1),100);
+                    circle_y_1 = sqrt(radius_1^2-circle_x.^2);
+                    circle_y_2 = -sqrt(radius_1^2-circle_x.^2);
+                    circle_x = circle_x+center_x;
+                    circle_y_1 = circle_y_1+center_y;
+                    circle_y_2 = circle_y_2+center_y;
+                    
+                    plot3(circle_x,circle_y_1,(lim_1+lim_2)*0.5*ones(100,1),'b-')
+                    hold all
+                    plot3(circle_x,circle_y_2,(lim_1+lim_2)*0.5*ones(100,1),'b-')
+                    hold all
+                    
+                    circle_x = linspace((-radius_2),(radius_2),100);
+                    circle_y_1 = sqrt(radius_2^2-circle_x.^2);
+                    circle_y_2 = -sqrt(radius_2^2-circle_x.^2);
+                    circle_x = circle_x+center_x;
+                    circle_y_1 = circle_y_1+center_y;
+                    circle_y_2 = circle_y_2+center_y;
+                    
+                    plot3(circle_x,circle_y_1,(lim_3+lim_4)*0.5*ones(100,1),'b-')
+                    hold all
+                    plot3(circle_x,circle_y_2,(lim_3+lim_4)*0.5*ones(100,1),'b-')
+                    hold all
                 
-                circle_x = linspace((-radius_1),(radius_1),100);
-                circle_y_1 = sqrt(radius_1^2-circle_x.^2);
-                circle_y_2 = -sqrt(radius_1^2-circle_x.^2);
-                circle_x = circle_x+center_x;
-                circle_y_1 = circle_y_1+center_y;
-                circle_y_2 = circle_y_2+center_y;
-                
-                plot3(circle_x,circle_y_1,(lim_1+lim_2)*0.5*ones(100,1),'b-')
-                hold all
-                plot3(circle_x,circle_y_2,(lim_1+lim_2)*0.5*ones(100,1),'b-')
-                hold all
-                
-                circle_x = linspace((-radius_2),(radius_2),100);
-                circle_y_1 = sqrt(radius_2^2-circle_x.^2);
-                circle_y_2 = -sqrt(radius_2^2-circle_x.^2);
-                circle_x = circle_x+center_x;
-                circle_y_1 = circle_y_1+center_y;
-                circle_y_2 = circle_y_2+center_y;
-                
-                plot3(circle_x,circle_y_1,(lim_3+lim_4)*0.5*ones(100,1),'b-')
-                hold all
-                plot3(circle_x,circle_y_2,(lim_3+lim_4)*0.5*ones(100,1),'b-')
-                hold all
-            
-                axis equal
-                
+                    axis equal
+                    
+                end
             end
-        
         end
-    
+        
     end
     
     savefile = sprintf("wet_%d.mat", replica);
     save(savefile,'tot')
-    
-    movefile(filename_txt, filename_dump)
 end
+
+fprintf("Completed in %.1f min\n",toc/60)
