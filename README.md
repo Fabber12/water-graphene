@@ -26,7 +26,7 @@
 </a>
 </p>
 
-Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*". Includes LAMMPS input files (some generated via Moltemplate) and post-processing scripts (Python, MATLAB)
+Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*". Includes LAMMPS input files (some generated via Moltemplate) and post-processing scripts (Python, MATLAB).
  
 
 ## Contents
@@ -36,7 +36,8 @@ Data and analysis scripts associated with the publication "*Role of surface oxid
 - [Thermal Boundary Resistance (TBR)](#thermal-boundary-resistance-tbr)
 
 
-<p style="color: orange; font-size: small;"><em>For clarity, all paths used with the <code>cd</code> command in this guide should be interpreted as absolute.</em></p>
+<p style="color: orange; font-size: small;"><em><p style="color: orange; font-size: small;"><em>For clarity, all <code>cd</code> commands use paths relative to the repository root, regardless of your current working directory.</em></p>
+</em></p>
 
 ## Contact Angle (CA)
 
@@ -68,7 +69,7 @@ lammps/CA/
 
 ### Usage
 
-1. Navigate into `lammps/CA/0-replica/` and modify `Wet.in` by adjusting the `Atom Definition Section`. Then run LAMMPS simulations (replace `X` with MPI ranks):
+1. Navigate into `lammps/CA/0-replica/` and modify `Wet.in` by adjusting the `Atom Definition Section`. Then run LAMMPS simulation (replace `X` with MPI ranks):
 
    ```bash
    mpirun -np X lmp_mpi -in Wet.in
@@ -93,7 +94,7 @@ This section describes how to compute the water density profile across the graph
 
 ### Overview
 
-The trajectory (.dump) is first binned along the surface-normal axis—using molecular surfaces generated with EDTSurf to define the bin boundaries—to tally oxygen and hydrogen atoms in 0.1 Å layers, after which these counts are converted into a mass-density profile across the graphene–water interface.
+The trajectory (.dump) is first binned along the surface-normal axis—using molecular surfaces generated with EDTSurf to define the bin boundaries—to tally hydrogen and oxygen atoms in 0.1 Å-thick layers, after which these counts are converted into a mass-density profile across the graphene–water interface.
 
 ### Directory Structure
 
@@ -131,7 +132,7 @@ post-processing/DP/
     cd post-processing/DP/MS
     python remove_dump_lines.py ../../../lammps/DP/water-graph_density.dump water-graph_reduced.dump N           # N : oxidation degree (e.g., 20)
     vmd -dispdev text PDB_conversion.tcl    
-    ./surface-generator.sh ms 1501          # ms: molecular surface | 1501: total number of frames (i.e. total number of PDB or ply files)
+    ./surface-generator.sh ms 1501          # ms: molecular surface | 1501: total number of frames (i.e., total number of PDB or PLY files)
     ```
 3. **Density profile**:
     ```bash
@@ -195,7 +196,7 @@ post-processing/PDOS/
     pdos.ipynb
     ```
 
-   The notebook loads `vacf_water.{1..100}` and `vacf_graph.{1..100}`, performs the FFT, plots the averaged single-sided spectra, and prints the overlap factor $S_{graph/water}$.
+   The notebook loads `vacf_water.{1..100}` and `vacf_graph.{1..100}`, performs an FFT, plots the averaged single-sided spectra, and prints the overlap factor $S_{graph/water}$.
 
 > Notes
 > - Required Python libraries: `numpy`, `pandas`, `scipy`, `matplotlib`.
@@ -210,7 +211,7 @@ This section explains how to set up LAMMPS runs that yield the raw quantities re
 
 ### Overview
 
-A pristine graphene sheet is functionalised with a user-defined fraction of hydroxyl groups using `add_OH.m`. The resulting functionalised sheet is combined with a water box and equilibrated to yield a relaxed configuration (`lammps/TBR/equilibration` folder). A temperature difference is then imposed between the graphene oxide and the water, allowing the graphene's energy and system's temperature evolution to be tracked for TBR evaluation (`lammps/TBR/transient` folder).
+A pristine graphene sheet is functionalized with a user-defined fraction of hydroxyl groups using `add_OH.m`. The resulting functionalized sheet is combined with a water box and equilibrated to yield a relaxed configuration (`lammps/TBR/equilibration` folder). A temperature difference is then imposed between the graphene oxide and the water, allowing the graphene's energy and system's temperature evolution to be tracked for TBR evaluation (`lammps/TBR/transient` folder).
 
 ### Directory Structure
 
@@ -261,5 +262,5 @@ lammps/TBR/
    ```
 > Notes
 > - A Moltemplate installation is required.
-> - Steps **1.** and **2.** can be skipped by using one of the pre-equilibrated systems available in `lammps/transient/systems_relaxed/`, which contains all the configurations analyzed in this study. In this case, edit the read_data command in `Water-Graph_transient.in` 
+> - Steps **1** and **2** can be skipped by using one of the pre-equilibrated systems available in `lammps/transient/systems_relaxed/`, which contains all the configurations analyzed in this study. In this case, edit the `read_data` command in `Water-Graph_transient.in` 
 
