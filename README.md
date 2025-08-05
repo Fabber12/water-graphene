@@ -247,7 +247,7 @@ lammps/TBR/
    cd lammps/TBR/equilibration
    ```
       ```bash
-   moltemplate Water-Graph_equilibration.lt
+   moltemplate.sh Water-Graph_equilibration.lt
    ```
    ```bash
    mpirun -np X lmp_mpi -in Water-Graph_equilibration.in
