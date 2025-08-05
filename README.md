@@ -7,6 +7,9 @@
 <a href="https://www.linux.org/" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/OS-Linux-orange?logo=linux&logoColor=white" alt="Linux" />
   </a>
+<a href="https://www.lammps.org" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/LAMMPS-2024%20Aug%2029-orange?logo=lammps&logoColor=white" alt="LAMMPS 2024 (29 Aug)" />
+</a>
 <a href="https://python.org" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/Python-3.11%2B-blue?logo=python&logoColor=white" alt="Python 3.11+" />
 </a>
@@ -14,10 +17,7 @@
    <img src="https://img.shields.io/badge/MATLAB-R2024b-orange" alt="Matlab R2024b" />
 </a>
 <a href="https://moltemplate.org/" target="_blank">
-  <img src="https://custom-icon-badges.demolab.com/badge/Moltemplate-2025.3.18-lightblue?logo=gear&logoColor=white" alt="Moltemplate 2025-3-18" />
-</a>
-<a href=".github/CONTRIBUTING.md" target="_blank">
-  <img src="https://custom-icon-badges.demolab.com/badge/contributions-open-4cb849?logo=code-of-conduct&logoColor=white" alt="Contributions welcome" />
+  <img src="https://custom-icon-badges.demolab.com/badge/Moltemplate-2025%20Mar%2018-lightblue?logo=gear&logoColor=white" alt="Moltemplate 2025-3-18" />
 </a>
 </p>
 <p align="center">
@@ -222,7 +222,7 @@ lammps/TBR/
         ├─ equilibration/                  # Equilibrates water-graphene oxide system
         │   ├─ H2O_Compass.lt                   # COMPASS water model
         │   ├─ Water-Graph_equilibration.lt     # Generates LAMMPS input files to run the simulation 
-        │   └─ TERSOFF_forcefield.ff             # Forcefield
+        │   └─ TERSOFF_forcefield.ff            # Forcefield
         │
         └─ transient/                      # Production run to evaluate the Kapitza resistance
             ├─ systems_relaxed/                 
