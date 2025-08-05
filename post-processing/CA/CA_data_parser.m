@@ -20,19 +20,21 @@ for replica=0:2
     data_tot(:,"Var9") = [];
     data_tot(:,"Var10") = [];
     
-    kk = 0;
-    index = zeros(500,1);
-    num_ref = data_tot{2,1};
-    for ii = 2:(size(data_tot,1)-1)
-            if data_tot{ii,1} == num_ref && isnan(data_tot{ii+1,1}) && isnan(data_tot{ii-1,1})
-                kk = kk+1; 
-                index(kk) = ii;
-            end
-    end
-    index(kk+1:end) = [];
+    if ~exist("indexes.mat","file")
+    	kk = 0;
+    	index = zeros(500,1);
+    	num_ref = data_tot{2,1};
+    	for ii = 2:(size(data_tot,1)-1)
+        	    if data_tot{ii,1} == num_ref && isnan(data_tot{ii+1,1}) && isnan(data_tot{ii-1,1})
+                	kk = kk+1; 
+                	index(kk) = ii;
+        	    end
+    	end
+    	index(kk+1:end) = [];
     
-    %save(sprintf('../../lammps/CA/%d-replica/index_%d.mat', replica,replica),'index');
-    %load sprintf('../../lammps/CA/%d-replica/index_%d.mat', replica,replica)
+    	save indexes index
+    end
+    load indexes.mat
     
     tot = struct('data',[],'CA_tan',[],'CA_min',[],'CA_max',[],'CA_dev',[],'x_solv',[],'y_solv',[],'z_solv',[],'x_pol',[],'y_pol',[],'z_pol',[]);
     tot(length(index),1) = tot;
