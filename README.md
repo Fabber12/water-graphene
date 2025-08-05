@@ -124,7 +124,7 @@ post-processing/DP/
    mpirun -np X lmp_mpi -in Water-Graph_density.in
    ```
 
-   *Note*: it's possible to use a pre-relaxed system (available in `lammps/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_density.in` accordingly.
+   *Note*: it's possible to use a pre-equilibrated system (available in `lammps/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/TBR/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_density.in` accordingly.
 
 2. **Generate Molecular surface**:
     ```bash
@@ -181,7 +181,7 @@ post-processing/PDOS/
    mpirun -np X lmp_mpi -in Water-Graph_pdos.in
    ```
 
-   *Tip*: it's possible to start from a relaxed data structure or generate your own structure by simulating `lammps/equilibration/`. Change the `read_data` line in `Water-Graph_density.in` accordingly.
+   *Note*: it's possible to use a pre-equilibrated system (available in `lammps/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/TBR/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_pdos.in` accordingly
 
 2. **Compute the PDOS and spectral overlap** in Python:
 
@@ -261,5 +261,5 @@ lammps/TBR/
    ```
 > Notes
 > - A Moltemplate installation is required.
-> - Steps **1.** and **2.** can be skipped by using one of the pre-equilibrated systems available in `lammps/transient/systems_relaxed/`, which contains all the configurations analyzed in this study. In this case edit the read_data command in `Water-Graph_transient.in` 
+> - Steps **1.** and **2.** can be skipped by using one of the pre-equilibrated systems available in `lammps/transient/systems_relaxed/`, which contains all the configurations analyzed in this study. In this case, edit the read_data command in `Water-Graph_transient.in` 
 
