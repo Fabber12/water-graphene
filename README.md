@@ -124,7 +124,7 @@ post-processing/DP/
    mpirun -np X lmp_mpi -in Water-Graph_density.in
    ```
 
-   *Tip*: it's possible to start from a relaxed data structure or generate your own structure by simulating `lammps/equilibration/`. Change the `read_data` command in `Water-Graph_density.in` accordingly.
+   *Note*: it's possible to use a pre-relaxed system (available in `lammps/equilibration/systems_relaxed/`) or generate your own structure by simulating `lammps/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_density.in` accordingly.
 
 2. **Generate Molecular surface**:
     ```bash
@@ -238,7 +238,7 @@ lammps/TBR/
    ```bash
    cd lammps/TBR
    ```
-   Open MATLAB, select the desired percentage of –OH groups to populate the graphene sheet, and run the simulation:
+   Open MATLAB, adjust the `oxid` variable to specify the desired percentage of –OH group coverage on the graphene sheet, and run the simulation:
    ```
    add_OH.m
    ```
