@@ -124,7 +124,7 @@ post-processing/DP/
    mpirun -np X lmp_mpi -in Water-Graph_density.in
    ```
 
-   *Note*: it's possible to use a pre-relaxed system (available in `lammps/equilibration/systems_relaxed/`) or generate your own structure by simulating `lammps/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_density.in` accordingly.
+   *Note*: it's possible to use a pre-relaxed system (available in `lammps/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_density.in` accordingly.
 
 2. **Generate Molecular surface**:
     ```bash
@@ -210,7 +210,7 @@ This section explains how to set up LAMMPS runs that yield the raw quantities re
 
 ### Overview
 
-A pristine graphene sheet is functionalised with a user-defined fraction of hydroxyl groups using `add_OH.m`. The resulting functionalised sheet is combined with a water box and equilibrated to yield a relaxed configuration (`lammps/equilibration` folder). A temperature difference is then imposed between the graphene oxide and the water, allowing the graphene's energy and system's temperature evolution to be tracked for TBR evaluation (`lammps/transient` folder).
+A pristine graphene sheet is functionalised with a user-defined fraction of hydroxyl groups using `add_OH.m`. The resulting functionalised sheet is combined with a water box and equilibrated to yield a relaxed configuration (`lammps/TBR/equilibration` folder). A temperature difference is then imposed between the graphene oxide and the water, allowing the graphene's energy and system's temperature evolution to be tracked for TBR evaluation (`lammps/TBR/transient` folder).
 
 ### Directory Structure
 
@@ -254,7 +254,7 @@ lammps/TBR/
    mpirun -np X lmp_mpi -in Water-Graph_equilibration.in
    ```
 
-3. **Run the transient heat-flux simulation**:
+3. **Launch the production run**:
    ```bash
    cd lammps/TBR/transient
    # edit the read_data command in `Water-Graph_transient.in`
@@ -262,4 +262,4 @@ lammps/TBR/
    ```
 > Notes
 > - A Moltemplate installation is required.
-> - It's possible to skip `1. Build the system` by using one of the ready-made files in `lammps/equilibration/systems_relaxed/`, where all the systems analysed in this study are available.
+> - It's possible to skip `1. Build the system` by using one of the ready-made files in `lammps/transient/systems_relaxed/`, where all the systems analysed in this study are available.
