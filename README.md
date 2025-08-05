@@ -221,7 +221,8 @@ lammps/TBR/
         │
         ├─ equilibration/                  # Equilibrates water-graphene oxide system
         │   ├─ H2O_Compass.lt                   # COMPASS water model
-        │   └─ Water-Graph_equilibration.lt     # Generates LAMMPS input files to run the simulation 
+        │   ├─ Water-Graph_equilibration.lt     # Generates LAMMPS input files to run the simulation 
+        │   └─ TERSOFF_forcefield.ff             # Forcefield
         │
         └─ transient/                      # Production run to evaluate the Kapitza resistance
             ├─ systems_relaxed/                 
