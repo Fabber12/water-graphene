@@ -83,7 +83,6 @@ write_once("Data Boundary") {
     echo            log
     log             \$\{run\}.log
 
-    # Neighbour list.
     neighbor        2.0 bin
     neigh_modify    check yes
 
@@ -100,11 +99,13 @@ write_once("Data Boundary") {
 
 write_once("In Run"){
 compute temp_water water temp
-compute temp_graph graph temp 
+compute temp_graph graph temp
+#compute msqdis  all msd com yes
 
 thermo          1000
 thermo_style custom step etotal evdwl ecoul elong ebond eangle ke pe temp c_temp_water c_temp_graph &
-press vol density c_msqdis[1] c_msqdis[2] c_msqdis[3] c_msqdis[4] cpu
+press vol density cpu &
+#c_msqdis[1] c_msqdis[2] c_msqdis[3] c_msqdis[4]
 thermo_modify flush yes
 
 dump 1 all custom 25000 \$\{run\}.dump id type element x y z xu yu zu vx vy vz mol
