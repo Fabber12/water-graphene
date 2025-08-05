@@ -238,7 +238,7 @@ lammps/TBR/
    ```bash
    cd lammps/TBR
    ```
-   Open MATLAB, adjust the `oxid` variable to specify the desired percentage of –OH group coverage on the graphene sheet, and run the simulation:
+   Open MATLAB, adjust the `oxid` variable to specify the desired percentage of –OH group coverage on the graphene sheet, and run the script:
    ```
    add_OH.m
    ```
