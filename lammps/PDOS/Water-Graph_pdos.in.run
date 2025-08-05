@@ -14,9 +14,9 @@ fix             1 all nve
  variable        i loop 100
  label           ensembleloop
  #store initial velocity for each instance of vacf calculation
- fix             v0save_water water store/state 10000 vx vy vz #save velocitities every 10000 steps
+ fix             v0save_water water store/state 10000 vx vy vz #save velocities every 10000 steps
  variable        v0v0_water atom f_v0save_water[1]*f_v0save_water[1]+f_v0save_water[2]*f_v0save_water[2]+f_v0save_water[3]*f_v0save_water[3]
- fix             v0save_graph graph store/state 10000 vx vy vz #save velocitities every 10000 steps
+ fix             v0save_graph graph store/state 10000 vx vy vz #save velocities every 10000 steps
  variable        v0v0_graph atom f_v0save_graph[1]*f_v0save_graph[1]+f_v0save_graph[2]*f_v0save_graph[2]+f_v0save_graph[3]*f_v0save_graph[3]
  compute         v0v0ave_water water reduce ave v_v0v0_water
  compute         v0v0ave_graph graph reduce ave v_v0v0_graph
