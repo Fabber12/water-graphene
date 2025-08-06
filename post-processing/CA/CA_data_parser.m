@@ -1,6 +1,15 @@
+%% Contact Angle Estimation from LAMMPS trajectory
+%
+% M. Provenzano – Politecnico di Torino, Italy - Aug 2024
+%
+% Processes replica .dump files to compute contact angles by fitting solvent
+% interfaces in cylindrical layers. Results saved in wet_*.mat files.
+
+%%
 clear all
 close all
 
+%%
 tic
 enable_plotting = false;
 

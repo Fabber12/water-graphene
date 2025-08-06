@@ -1,6 +1,6 @@
 %% Water Density over Graphene Surface
 %
-% F. Tarulli – Politecnico di Torino, March 7, 2025
+% F. Tarulli – Politecnico di Torino, Italy - Mar 7, 2025
 %
 % This script calculates the layer-resolved density of water molecules
 % above and below a graphene sheet using PLY surfaces from EDTSurf

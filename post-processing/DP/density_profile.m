@@ -1,6 +1,6 @@
 %% Water Density Profile (Above/Below Graphene)
 %
-% F. Tarulli – Politecnico di Torino, Mar 20, 2025
+% F. Tarulli – Politecnico di Torino, Italy - Mar 20, 2025
 %
 % Computes the z-resolved water density (g/cm³) from atom counts in
 % `counters.mat`.
