@@ -36,7 +36,7 @@ tic
 
 %% Settings
 dir_path="./";
-oxid = 20;                           % Oxidation percentage (e.g 20) 
+oxid = 20;                           % Oxidation degree (e.g 20) 
 
 qCC = 0.265;                            % Charge: atom bound with OH group
 qO2 = -0.683;                           % Charge: Oxygen of OH group
@@ -121,78 +121,16 @@ for i = 1:linestep
 end
 
 %% random atoms functionalization 
-attempt=0;
-iterations=100; %number of attempts to arrange atoms in a proper way, complying with the distance criterion
+positions   = [xC, yC];              
+opts        = statset('MaxIter',300);
+[~, C]      = kmeans(positions, XX, 'Replicates',4, 'Options',opts);
 
-% creating a function for the minimum distance between CC atoms (criterion) 
-x_known = [20, 99, 197, 394, 592, 789, 968, 1183]; %XX
-y_known = [15, 6.49, 4.25, 2.46, 2.456, 1.418, 1.418, 1.418]; %distances
-
-f = @(x) interp1(x_known, y_known, x, 'pchip'); %returns the corresponding minimum spacing between functionalized C atoms
-
-
-while attempt<=iterations
-try
-selected_atoms = [];
-functPosition = [];
-u = 1;
-leng=f(XX);
-toll = 1e-2;
-
-otheratoms = 1:linestep;
-
-while true
-
-    random_index = randi(length(otheratoms));
-    random_atom = otheratoms(random_index);
-    x_atom = xC(random_atom);
-    y_atom = yC(random_atom);
-
-    if isempty(selected_atoms)
-        selected_atoms(u,1) = random_atom;
-        functPosition(u, 1) = x_atom;
-        functPosition(u, 2) = y_atom;
-        u = u + 1;
-    else
-        valid_distance = true;
-        for i = 1:length(selected_atoms)
-            for j = 1:length(selected_atoms)
-                if i ~= j
-                    distance = sqrt((functPosition(i,1) - x_atom)^2 + (functPosition(i,2) - y_atom)^2);
-                    if distance <= (leng - toll)
-                        valid_distance = false;
-                        break;
-                    end
-                end
-            end
-            if ~valid_distance
-                break;
-            end
-        end
-
-
-        if valid_distance 
-            selected_atoms(u,1) = random_atom;
-            functPosition(u, 1) = x_atom;
-            functPosition(u, 2) = y_atom;
-            u = u + 1;
-        end
-    end
-
-    otheratoms(random_index) = [];
-
-    if length(selected_atoms) >= XX
-        break; 
-    end
-end
-break
-catch 
-    attempt=attempt+1;
+selected_atoms = zeros(XX,1);
+for i = 1:XX
+    d2 = sum((positions - C(i,:)).^2, 2); 
+    [~, selected_atoms(i)] = min(d2);
 end
 
-end
-
-if attempt<iterations
 for i = 1:XX
     
     j=selected_atoms(i);
@@ -362,9 +300,5 @@ delete(bondCCO2_txt);
 delete(bondO2H2_txt);
 delete(anglesCOH_txt);
 movefile(tempFileName, sourceFileName, 'f');
-
-else 
-    fprintf("Number of functionalized atoms not reached\n")
-end
 
 fprintf("Elapsed time: %.1f s\n",toc)
