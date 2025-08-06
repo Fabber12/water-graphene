@@ -1,5 +1,13 @@
-% water density with Molecular Surface generated with EDTSurf 
-% Last code (8/7/25) for Linux
+%% Water Density over Graphene Surface
+%
+% F. Tarulli – Politecnico di Torino, March 7, 2025
+%
+% This script calculates the layer-resolved density of water molecules
+% above and below a graphene sheet using PLY surfaces from EDTSurf
+% and atomic positions from LAMMPS dump files.
+%
+% Output:
+%   - counters.mat: atom counts per layer and frame
 
 %%
 clear vars; close all; clc
@@ -160,4 +168,4 @@ fclose(fileID);
 mkdir('counters')
 save(fullfile('counters', 'counters.mat'), 'counterUP', 'counterDOWN');
 
-fprintf('Elapsed time= %f',toc)
+fprintf('Elapsed time = %.1f min\n',toc/60)

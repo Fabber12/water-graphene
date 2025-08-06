@@ -84,7 +84,7 @@ lammps/CA/
     ```
 > Notes
 > - Ensure that each simulation completes before running MATLAB scripts to guarantee all data is available for analysis.
-> - It's possible to leverage `lammps/TBR/add_OH.m` script to create a new graphene oxide and then run an equilibration simulation to generate your own relaxed graphene oxide configuration. (Paths and settings in the MATLAB code have to be adjusted).
+> - It's possible to leverage `lammps/TBR/add_OH.m` script to create a new graphene oxide and then run an equilibration simulation to generate your own stable graphene oxide configuration. (Paths and settings in the MATLAB code have to be adjusted).
 
 
 
@@ -106,14 +106,14 @@ lammps/DP/
 post-processing/DP/
                 ├─ MS/                           # Molecular surface generation
                 |   ├─ remove_dump_lines.py             # Removes water molecules from .dump file
-                |   ├─ PDB_conversion.tcl               # Converts single frames of a .dump file into PDB files
+                |   ├─ PDB_conversion.tcl               # Converts single frames within a .dump file into separate PDB files
                 |   ├─ EDTSurf                          # Software used in surface-generator.sh (see https://zhanggroup.org/EDTSurf/)
                 |   ├─ surface-generator.sh             # Generates .ply 3D molecular surfaces 
                 |   └─ (surface-generator_parallel.sh)  # Generates .ply 3D molecular surfaces (with `GNU parallel`)
                 │
                 ├─ data_parser.m                 # Counts the number of particles within each bin for every frame
                 ├─ density_profile.m             # Plots water density profile
-                └─ fastPlyRead.m                 # MATLAB function
+                └─ fastPlyRead.m                 # MATLAB function used in `data_parser.m`
 ```
 
 ### Usage
@@ -131,24 +131,25 @@ post-processing/DP/
     ```bash
     cd post-processing/DP/MS
     python remove_dump_lines.py ../../../lammps/DP/water-graph_density.dump water-graph_reduced.dump N           # N : oxidation degree (e.g., 20)
-    vmd -dispdev text PDB_conversion.tcl    
-    ./surface-generator.sh ms 1501          # ms: molecular surface | 1501: total number of frames (i.e., total number of PDB or PLY files)
+    vmd -dispdev text -e PDB_conversion.tcl    
+    ./surface-generator.sh ms 1501          # ms: molecular surface | 1501: total number of frames (i.e., total number of PDB files)
     ```
 3. **Density profile**:
     ```bash
     cd post-processing/DP
     ```
-    Open MATLAB and launch: 
-    ```
+    Open MATLAB, adjust the `oxid` variable to specify the percentage of –OH group coverage on the graphene sheet, and run the script: 
+    ```bash
     data_parser.m
     ```
+    Then run:
     ``` 
     density_profile.m
     ```
 
 > Notes
 > - EDTSurf is a binary file for Linux systems.
-> - If you want to speed up `surface-generator.sh` use `surface-generator_parallel.sh`. Be sure to have `GNU parallel` installed.
+> - Generating surfaces for 1501 frames with `surface-generator.sh` is time-intensive; for faster execution, consider using `surface-generator_parallel.sh` (requires GNU parallel).
 > - Running `data_parser.m` **before** `density_profile.m` is mandatory, otherwise the particle count file will be missing.
 > - Variables `maxZheight` and `thickness` in `data_parser.m` and `density_profile.m` **must match**. Default values are 15 Å and 0.1 Å respectively, producing 150 bins.
 
@@ -211,7 +212,7 @@ This section explains how to set up LAMMPS runs that yield the raw quantities re
 
 ### Overview
 
-A pristine graphene sheet is functionalized with a user-defined fraction of hydroxyl groups using `add_OH.m`. The resulting functionalized sheet is combined with a water box and equilibrated to yield a relaxed configuration (`lammps/TBR/equilibration` folder). A temperature difference is then imposed between the graphene oxide and the water, allowing the graphene's energy and system's temperature evolution to be tracked for TBR evaluation (`lammps/TBR/transient` folder).
+A pristine graphene sheet is functionalized with a user-defined fraction of hydroxyl groups using `add_OH.m`. The resulting functionalized sheet is combined with a water box and equilibrated to yield an equilibrated configuration (`lammps/TBR/equilibration` folder). A temperature difference is then imposed between the graphene oxide and the water, allowing the graphene's energy and system's temperature evolution to be tracked for TBR evaluation (`lammps/TBR/transient` folder).
 
 ### Directory Structure
 
@@ -262,5 +263,18 @@ lammps/TBR/
    ```
 > Notes
 > - A Moltemplate installation is required.
-> - Steps **1** and **2** can be skipped by using one of the pre-equilibrated systems available in `lammps/transient/systems_relaxed/`, which contains all the configurations analyzed in this study. In this case, edit the `read_data` command in `Water-Graph_transient.in` 
+> - Steps **1** and **2** can be skipped by using one of the pre-equilibrated systems available in `lammps/transient/systems_relaxed/`, which contains all the configurations analyzed in this study. In this case, edit the `read_data` command in `Water-Graph_transient.in`.
+
+### Useful output files
+
+The following outputs are used in the evaluation of TBR:
+
+> - *kinetic_graph.txt* — kinetic energy of the graphene sheet
+> - *potential_graph.txt* — potential energy of the graphene sheet
+> - *system_graph.txt* — temperature of the graphene sheet
+> - *system_h2o.txt* — temperature of the water bulk
+> - *temp_chunk_bias_1A.out* — water temperature profile along the z-axis
+
+
+
 

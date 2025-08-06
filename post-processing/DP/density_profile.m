@@ -1,3 +1,11 @@
+%% Water Density Profile (Above/Below Graphene)
+%
+% F. Tarulli – Politecnico di Torino, Mar 20, 2025
+%
+% Computes the z-resolved water density (g/cm³) from atom counts in
+% `counters.mat`.
+
+%%
 clc;
 clear vars
 tic;
@@ -24,7 +32,7 @@ maxLayers = maxZheight/thickness;
         lengthBOX = line(end) - line(1);
         fclose(fileID);
     catch
-        ME = MException('MyTool:AreaNotFound','Cross sectional area not found. File .dump missing: import "widthBOX" and "lengthBOX" manually\n');
+        ME = MException('Warn:AreaNotFound','Cross sectional area not found. File .dump missing: import "widthBOX" and "lengthBOX" manually\n');
         throw(ME)
     end
 
@@ -92,7 +100,7 @@ y_fine = interp1(positions, density, x_fine, 'pchip');
 figure;
 plot(x_fine, y_fine, 'r', 'LineWidth', 2);
 hold on
-plot(linspace(-maxZheight,maxZheight,length(density)), density, 'ob');
+plot(linspace(-maxZheight,maxZheight, length(density)), density, 'ob', 'MarkerFaceColor', 'b', 'MarkerSize', 5);
 title(sprintf('Water Density profile'))
 xlabel('Z (Å)')
 ylabel('Density (g/cm^3)')
