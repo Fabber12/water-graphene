@@ -5,10 +5,10 @@
   <img src="https://custom-icon-badges.demolab.com/badge/data-FAIR-blue?logo=database&logoColor=white" alt="FAIR data" />
 </a>
 <a href="https://www.linux.org/" target="_blank">
-  <img src="https://custom-icon-badges.demolab.com/badge/OS-Linux-orange?logo=linux&logoColor=white" alt="Linux" />
+  <img src="https://custom-icon-badges.demolab.com/badge/OS-Linux-white?logo=linux&logoColor=white" alt="Linux" />
   </a>
 <a href="https://www.lammps.org" target="_blank">
-  <img src="https://custom-icon-badges.demolab.com/badge/LAMMPS-2024%20Aug%2029-orange?logo=lammps&logoColor=white" alt="LAMMPS 2024 (29 Aug)" />
+  <img src="https://custom-icon-badges.demolab.com/badge/LAMMPS-2024%20Aug%2029-purple?logo=lammps&logoColor=white" alt="LAMMPS 2024 (29 Aug)" />
 </a>
 <a href="https://python.org" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/Python-3.11%2B-blue?logo=python&logoColor=white" alt="Python 3.11+" />
@@ -17,12 +17,16 @@
    <img src="https://img.shields.io/badge/MATLAB-R2024b-orange" alt="Matlab R2024b" />
 </a>
 <a href="https://moltemplate.org/" target="_blank">
-  <img src="https://custom-icon-badges.demolab.com/badge/Moltemplate-2025%20Mar%2018-lightblue?logo=gear&logoColor=white" alt="Moltemplate 2025-3-18" />
+  <img src="https://custom-icon-badges.demolab.com/badge/Moltemplate-2025%20Mar%2018-red?logo=gear&logoColor=white" alt="Moltemplate 2025-3-18" />
 </a>
 </p>
 <p align="center">
 <a href="LICENSE" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/license-CC--BY%204.0-lightgray?logo=law&logoColor=white" alt="License CC-BY 4.0" />
+    <a target="_blank" href="https://github.com/psf/black"><img
+        src="https://img.shields.io/badge/code%20style-black-000000.svg"
+        alt="Code style - black" />
+    </
 </a>
 </p>
 
@@ -125,16 +129,16 @@ A series of three replica simulations (`0-replica`, `1-replica`, `2-replica`) ar
 ```bash
 lammps/CA/
         ├── relaxed_graph/              # Pre-equilibrated graphene structures at various oxidation degrees
-        |
+        │
         ├── 0-replica/                  # Base simulation folder
-        |   ├── TERSOFF_forcefield.ff       # Forcefield
+        │   ├── TERSOFF_forcefield.ff       # Forcefield
         │   ├── Wet.in*                     # LAMMPS input files
         │   └── water_box.data              # Water box to merge with equilibrated graphene structure
-        |
+        │
         ├── 1-replica/                  # Simulation folder
-        |   ├── TERSOFF_forcefield.ff       # Forcefield
-        |   └── Wet.in*                     # LAMMPS input files
-        |
+        │   ├── TERSOFF_forcefield.ff       # Forcefield
+        │   └── Wet.in*                     # LAMMPS input files
+        │
         └── 2-replica/                  # Simulation folder
             ├── TERSOFF_forcefield.ff       # Forcefield
             └── Wet.in*                     # LAMMPS input files
@@ -178,11 +182,11 @@ lammps/DP/
 
 post-processing/DP/
                 ├─ MS/                           # Molecular surface generation
-                |   ├─ remove_dump_lines.py             # Removes water molecules from .dump file
-                |   ├─ PDB_conversion.tcl               # Converts single frames within the .dump file into separate PDB files
-                |   ├─ EDTSurf                          # Software used in surface-generator.sh (see https://zhanggroup.org/EDTSurf/)
-                |   ├─ surface-generator.sh             # Generates .ply 3D molecular surfaces 
-                |   └─ (surface-generator_parallel.sh)  # Generates .ply 3D molecular surfaces (with `GNU parallel`)
+                │   ├─ remove_dump_lines.py             # Removes water molecules from .dump file
+                │   ├─ PDB_conversion.tcl               # Converts single frames within the .dump file into separate PDB files
+                │   ├─ EDTSurf                          # Software used in surface-generator.sh (see https://zhanggroup.org/EDTSurf/)
+                │   ├─ surface-generator.sh             # Generates .ply 3D molecular surfaces 
+                │   └─ (surface-generator_parallel.sh)  # Generates .ply 3D molecular surfaces (with `GNU parallel`)
                 │
                 ├─ data_parser.m                 # Counts the number of particles within each bin for every frame
                 ├─ density_profile.m             # Plots water density profile
