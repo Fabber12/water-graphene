@@ -1,6 +1,6 @@
 %% Graphene OH‐Functionalization
 %
-% Created by F. Tarulli, Politecnico di Torino, Italy - October 16, 2023
+% Created by F. Tarulli, Politecnico di Torino, Italy - Oct 16, 2023
 %
 % This script reads an existing graphene file (“graphene.lt”), 
 % identifies a user‐specified fraction of carbon atoms to functionalize with 
