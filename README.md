@@ -63,7 +63,7 @@ lammps/TBR/
         │
         └─ transient/                      # Production run to evaluate the Kapitza resistance
             ├─ systems_relaxed/                 
-            │   └─ relaxed_water-graph_*.data         # Pre-relaxed data files (oxidation (%): 0,5,10,20,40,60,80)
+            │   └─ relaxed_water-graph_*.data         # Pre-equilibrated systems files (oxidation (%): 0,5,10,20,40,60,80)
             │
             ├─ Water-Graph_transient.in*         # LAMMPS input files
             └─ TERSOFF_forcefield.ff             # Forcefield
@@ -124,12 +124,12 @@ A series of three replica simulations (`0-replica`, `1-replica`, `2-replica`) ar
 
 ```bash
 lammps/CA/
-        ├── relaxed_graph/              # Pre-equilibrated relaxed graphene structures at various oxidation degrees
+        ├── relaxed_graph/              # Pre-equilibrated graphene structures at various oxidation degrees
         |
         ├── 0-replica/                  # Base simulation folder
         |   ├── TERSOFF_forcefield.ff       # Forcefield
         │   ├── Wet.in*                     # LAMMPS input files
-        │   └── water_box.data              # Water box to merge with relaxed graphene structure
+        │   └── water_box.data              # Water box to merge with equilibrated graphene structure
         |
         ├── 1-replica/                  # Simulation folder
         |   ├── TERSOFF_forcefield.ff       # Forcefield
