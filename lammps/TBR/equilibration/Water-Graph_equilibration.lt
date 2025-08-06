@@ -72,7 +72,6 @@ write_once("Data Boundary") {
 
     group graph type  @atom:CA @atom:CC @atom:O2 @atom:H2 
     group water type  @atom:O  @atom:H
-
   }
 
   write_once("In Init") {
