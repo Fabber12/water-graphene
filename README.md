@@ -157,7 +157,7 @@ lammps/CA/
     ```
 > Notes
 > - Ensure that each simulation completes before running MATLAB scripts to guarantee all data is available for analysis.
-> - It's possible to leverage `lammps/TBR/add_OH.m` script to create a new graphene oxide and then run an equilibration simulation to generate your own stable graphene oxide configuration. (Paths and settings in the MATLAB code have to be adjusted).
+> - It's possible to use `lammps/TBR/add_OH.m` script to create a new graphene oxide and then run an equilibration simulation to generate your own stable graphene oxide configuration. (Paths and settings in the MATLAB code have to be adjusted).
 
 $~$
 
