@@ -43,5 +43,4 @@ pair_coeff   5 6 lj/class2/coul/long  0.00155028 3.18983        # sixth power
 pair_coeff * * tersoff TERSOFF_forcefield.ff NULL NULL C C NULL NULL
 
 group graph type  3 4 5 6 
-group water type  1  2
-
+group water type  1 2
