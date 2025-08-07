@@ -21,14 +21,18 @@
 </a>
 </p>
 <p align="center">
-<a href="LICENSE" target="_blank">
-  <img src="https://custom-icon-badges.demolab.com/badge/license-CC--BY%204.0-lightgray?logo=law&logoColor=white" alt="License CC-BY 4.0" />
-    <a target="_blank" href="https://github.com/psf/black"><img
-        src="https://img.shields.io/badge/code%20style-black-000000.svg"
+   <a href="LICENSE" target="_blank">
+      <img src="https://custom-icon-badges.demolab.com/badge/license-CC--BY%204.0-lightgray?logo=law&logoColor=white" alt="License CC-BY 4.0" />
+   </a>
+   <a target="_blank" href="https://github.com/psf/black">
+   <img src="https://img.shields.io/badge/code%20style-black-000000.svg"
         alt="Code style - black" />
-    </
-</a>
+   </a>
 </p>
+
+
+
+
 
 Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*", by F. Tarulli et al.<br>
 Includes LAMMPS input files (some generated via Moltemplate) and post-processing scripts (Python, MATLAB).
@@ -44,7 +48,7 @@ Includes LAMMPS input files (some generated via Moltemplate) and post-processing
 <p style="color: orange; font-size: small;"><em><p style="color: orange; font-size: small;"><em>For clarity, all <code>cd</code> commands use paths relative to the repository root, regardless of your current working directory.</em></p>
 </em></p>
 
-$~$
+<br>
 
 ## Thermal Boundary Resistance (TBR)
 
@@ -118,7 +122,7 @@ post-processing/TBR/
 
 > Notes
 > - A Moltemplate installation is required.
-> - Steps **1** and **2** can be skipped by using one of the pre-equilibrated systems available in `lammps/transient/systems_relaxed/`, which contains all the configurations analyzed in this study. In this case, edit the `read_data` command in `Water-Graph_transient.in`.
+> - Steps **1** and **2** can be skipped by using one of the pre-equilibrated systems available in `lammps/TBR/transient/systems_relaxed/`, which contains all the configurations analyzed in this study. In this case, edit the `read_data` command in `Water-Graph_transient.in`.
 > - Required Python libraries: `numpy`, `pandas`, `scipy`, `matplotlib`, `tqdm`, `statsmodels`.
 
 ### Useful output files
@@ -132,7 +136,7 @@ The following outputs are used in the evaluation of TBR:
 > - *temp_chunk_bias_1A.out* — water temperature profile along the z-axis
 > - *slab_position_verify.txt* — lists total number of spatial bins and the slab-skip offsets used to define the upper/lower temperature slabs
 
-$~$
+<br>
 
 ## Contact Angle (CA)
 
@@ -181,7 +185,7 @@ lammps/CA/
 > - Ensure that each simulation completes before running MATLAB scripts to guarantee all data is available for analysis.
 > - It's possible to use `lammps/TBR/add_OH.m` script to create a new graphene oxide and then run an equilibration simulation to generate your own stable graphene oxide configuration. (Paths and settings in the MATLAB code have to be adjusted).
 
-$~$
+<br>
 
 ## Density Profile (DP)
 
@@ -220,7 +224,7 @@ post-processing/DP/
    mpirun -np X lmp_mpi -in Water-Graph_density.in
    ```
 
-   *Tip*: it's possible to use a pre-equilibrated system (available in `lammps/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/TBR/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_density.in` accordingly.
+   *Tip*: it's possible to use a pre-equilibrated system (available in `lammps/TBR/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/TBR/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_density.in` accordingly.
 
 2. **Generate molecular surface**:
     ```bash
@@ -248,7 +252,7 @@ post-processing/DP/
 > - Running `data_parser.m` **before** `density_profile.m` is mandatory, otherwise the particle count file will be missing.
 > - Variables `maxZheight` and `thickness` in `data_parser.m` and `density_profile.m` **must match**. Default values are 15 Å and 0.1 Å respectively, producing 150 bins.
 
-$~$
+<br>
 
 ## Phonon Density of States (PDOS)
 
@@ -278,7 +282,7 @@ post-processing/PDOS/
    mpirun -np X lmp_mpi -in Water-Graph_pdos.in
    ```
 
-   *Tip*: it's possible to use a pre-equilibrated system (available in `lammps/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/TBR/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_pdos.in` accordingly.
+   *Tip*: it's possible to use a pre-equilibrated system (available in `lammps/TBR/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/TBR/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_pdos.in` accordingly.
 
 2. **Compute the PDOS and spectral overlap**:
 
