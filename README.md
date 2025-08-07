@@ -34,7 +34,7 @@
 
 
 
-Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*", by F. Tarulli et al.<br>
+Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*", by F. Tarulli *et al.*
 Includes LAMMPS input files (some generated via Moltemplate) and post-processing scripts (Python, MATLAB).
  
 
@@ -44,10 +44,8 @@ Includes LAMMPS input files (some generated via Moltemplate) and post-processing
 - [Density Profile (DP)](#density-profile-dp)
 - [Phonon Density of States (PDOS)](#phonon-density-of-states-pdos)
 
-
-<p style="color: orange; font-size: small;"><em><p style="color: orange; font-size: small;"><em>For clarity, all <code>cd</code> commands use paths relative to the repository root, regardless of your current working directory.</em></p>
-</em></p>
-
+<br>
+<p style="color: orange; font-size: small;"><em>For clarity, all <code>cd</code> commands use paths relative to the repository root, regardless of your current working directory.</em></p>
 <br>
 
 ## Thermal Boundary Resistance (TBR)
@@ -72,7 +70,7 @@ lammps/TBR/
         │
         └─ transient/                      # Production run to evaluate the Kapitza resistance
             ├─ systems_relaxed/                 
-            │   └─ relaxed_water-graph_*.data         # Pre-equilibrated systems files (oxidation (%): 0,5,10,20,40,60,80)
+            │   └─ relaxed_water-graph_*.data         # Pre-equilibrated system files (oxidation (%): 0,5,10,20,40,60,80)
             │
             ├─ Water-Graph_transient.in*         # LAMMPS input files
             └─ TERSOFF_forcefield.ff             # Forcefield
@@ -301,7 +299,3 @@ post-processing/PDOS/
 > Notes
 > - Required Python libraries: `numpy`, `pandas`, `scipy`, `matplotlib`.
 > - Ensure all 100 VACF files are present before launching the notebook; otherwise adjust the loop range inside the first cell.
-
-
-
-
