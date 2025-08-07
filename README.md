@@ -17,7 +17,7 @@
    <img src="https://img.shields.io/badge/MATLAB-R2024b-orange" alt="Matlab R2024b" />
 </a>
 <a href="https://moltemplate.org/" target="_blank">
-  <img src="https://custom-icon-badges.demolab.com/badge/Moltemplate-2025%20Mar%2018-red?logo=gear&logoColor=white" alt="Moltemplate 2025-3-18" />
+  <img src="https://custom-icon-badges.demolab.com/badge/Moltemplate-2025%20Mar%2018-lightblue?logo=gear&logoColor=white" alt="Moltemplate 2025-3-18" />
 </a>
 </p>
 <p align="center">
