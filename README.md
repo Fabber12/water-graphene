@@ -30,7 +30,7 @@
 </a>
 </p>
 
-Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*". Includes LAMMPS input files (some generated via Moltemplate) and post-processing scripts (Python, MATLAB).
+Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*, by F. Tarulli and F.M. Bellussi". Includes LAMMPS input files (some generated via Moltemplate) and post-processing scripts (Python, MATLAB).
  
 
 ## Contents
