@@ -71,6 +71,9 @@ lammps/TBR/
             │
             ├─ Water-Graph_transient.in*         # LAMMPS input files
             └─ TERSOFF_forcefield.ff             # Forcefield
+
+post-processing/TBR/
+                 └─ Kapitza.ipynb          # Computes TBR
 ```
 
 ### Usage
@@ -100,9 +103,22 @@ lammps/TBR/
    cd lammps/TBR/transient
    mpirun -np X lmp_mpi -in Water-Graph_transient.in
    ```
+
+4. **Compute Kapitza resistance and conductance**:
+   ```bash
+    cd post-processing/TBR
+    ```
+
+    Open the Jupyter notebook and run:
+
+    ```text
+    Kapitza.ipynb
+    ```
+
 > Notes
 > - A Moltemplate installation is required.
 > - Steps **1** and **2** can be skipped by using one of the pre-equilibrated systems available in `lammps/transient/systems_relaxed/`, which contains all the configurations analyzed in this study. In this case, edit the `read_data` command in `Water-Graph_transient.in`.
+> - Required Python libraries: `numpy`, `pandas`, `scipy`, `matplotlib`, `tqdm`, `statsmodels`.
 
 ### Useful output files
 
@@ -113,6 +129,7 @@ The following outputs are used in the evaluation of TBR:
 > - *system_graph.txt* — temperature of the graphene sheet
 > - *system_h2o.txt* — temperature of the water bulk
 > - *temp_chunk_bias_1A.out* — water temperature profile along the z-axis
+> - *slab_position_verify.txt* — lists total number of spatial bins and the slab-skip offsets used to define the upper/lower temperature slabs
 
 $~$
 
