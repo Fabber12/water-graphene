@@ -1,14 +1,14 @@
 <h1 align="center">Water-Graphene Oxide Interface</h1>
 
 <p align="center">
-<a href="https://www.nature.com/articles/sdata201618" target="_blank">
-  <img src="https://custom-icon-badges.demolab.com/badge/data-FAIR-blue?logo=database&logoColor=white" alt="FAIR data" />
-</a>
 <a href="https://www.linux.org/" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/OS-Linux-white?logo=linux&logoColor=white" alt="Linux" />
   </a>
 <a href="https://www.lammps.org" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/LAMMPS-2024%20Aug%2029-purple?logo=lammps&logoColor=white" alt="LAMMPS 2024 (29 Aug)" />
+</a>
+<a href="https://jupyter.org/" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white" alt="Jupyter Notebook" />
 </a>
 <a href="https://python.org" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/Python-3.11%2B-blue?logo=python&logoColor=white" alt="Python 3.11+" />
@@ -19,8 +19,15 @@
 <a href="https://moltemplate.org/" target="_blank">
   <img src="https://custom-icon-badges.demolab.com/badge/Moltemplate-2025%20Mar%2018-lightblue?logo=gear&logoColor=white" alt="Moltemplate 2025-3-18" />
 </a>
+<a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/VMD-1.9.3-teal?logo=eye&logoColor=white" alt="VMD 1.9.3" />
+</a>
 </p>
+
 <p align="center">
+   <a href="https://www.nature.com/articles/sdata201618" target="_blank">
+   <img src="https://custom-icon-badges.demolab.com/badge/data-FAIR-blue?logo=database&logoColor=white" alt="FAIR data" />
+   </a>
    <a href="LICENSE" target="_blank">
       <img src="https://custom-icon-badges.demolab.com/badge/license-CC--BY%204.0-lightgray?logo=law&logoColor=white" alt="License CC-BY 4.0" />
    </a>
@@ -78,6 +85,23 @@ lammps/TBR/
 post-processing/TBR/
                  └─ Kapitza.ipynb          # Computes TBR
 ```
+### Prerequisites 
+<a href="https://www.lammps.org" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/LAMMPS-2024%20Aug%2029-purple?logo=lammps&logoColor=white" alt="LAMMPS 2024 (29 Aug)" />
+</a>
+<a href="https://moltemplate.org/" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/Moltemplate-2025%20Mar%2018-lightblue?logo=gear&logoColor=white" alt="Moltemplate 2025-3-18" />
+</a>
+<a href="https://jupyter.org/" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white" alt="Jupyter Notebook" />
+</a>
+<a href="https://python.org" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/Python-3.11%2B-blue?logo=python&logoColor=white" alt="Python 3.11+" />
+</a>
+<a href="https://mathworks.com" target="_blank">
+   <img src="https://img.shields.io/badge/MATLAB-R2024b-orange" alt="Matlab R2024b" />
+</a>
+
 
 ### Usage
 
@@ -163,6 +187,13 @@ lammps/CA/
             ├── TERSOFF_forcefield.ff       # Forcefield
             └── Wet.in*                     # LAMMPS input files
 ```
+### Prerequisites 
+<a href="https://www.lammps.org" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/LAMMPS-2024%20Aug%2029-purple?logo=lammps&logoColor=white" alt="LAMMPS 2024 (29 Aug)" />
+</a>
+<a href="https://mathworks.com" target="_blank">
+   <img src="https://img.shields.io/badge/MATLAB-R2024b-orange" alt="Matlab R2024b" />
+</a>
 
 ### Usage
 
@@ -213,6 +244,20 @@ post-processing/DP/
                 └─ fastPlyRead.m                 # MATLAB function used in `data_parser.m`
 ```
 
+### Prerequisites 
+<a href="https://www.lammps.org" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/LAMMPS-2024%20Aug%2029-purple?logo=lammps&logoColor=white" alt="LAMMPS 2024 (29 Aug)" />
+</a>
+<a href="https://www.ks.uiuc.edu/Research/vmd/" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/VMD-1.9.3-teal?logo=eye&logoColor=white" alt="VMD 1.9.3" />
+</a>
+<a href="https://python.org" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/Python-3.11%2B-blue?logo=python&logoColor=white" alt="Python 3.11+" />
+</a>
+<a href="https://mathworks.com" target="_blank">
+   <img src="https://img.shields.io/badge/MATLAB-R2024b-orange" alt="Matlab R2024b" />
+</a>
+
 ### Usage
 
 1. **Run the LAMMPS simulation** (replace `X` with MPI ranks):
@@ -231,7 +276,7 @@ post-processing/DP/
     vmd -dispdev text -e PDB_conversion.tcl    
     ./surface-generator.sh ms 1501          # ms: molecular surface | 1501: total number of frames (i.e., total number of PDB files)
     ```
-3. **Density profile**:
+3. **Compute density profile**:
     ```bash
     cd post-processing/DP
     ```
@@ -270,6 +315,17 @@ lammps/PDOS/
 post-processing/PDOS/               
                   └─ pdos.ipynb         # Computes PDOS and overlap factor
 ```
+
+### Prerequisites
+<a href="https://www.lammps.org" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/LAMMPS-2024%20Aug%2029-purple?logo=lammps&logoColor=white" alt="LAMMPS 2024 (29 Aug)" />
+</a>
+<a href="https://jupyter.org/" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white" alt="Jupyter Notebook" />
+</a>
+<a href="https://python.org" target="_blank">
+  <img src="https://custom-icon-badges.demolab.com/badge/Python-3.11%2B-blue?logo=python&logoColor=white" alt="Python 3.11+" />
+</a>
 
 ### Usage
 
