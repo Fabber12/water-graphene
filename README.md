@@ -30,7 +30,8 @@
 </a>
 </p>
 
-Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*, by F. Tarulli and F.M. Bellussi". Includes LAMMPS input files (some generated via Moltemplate) and post-processing scripts (Python, MATLAB).
+Data and analysis scripts associated with the publication "*Role of surface oxidation in enhancing heat transfer across graphene/water interface via Thermal Boundary Resistance modulation*", by F. Tarulli et al.<br>
+Includes LAMMPS input files (some generated via Moltemplate) and post-processing scripts (Python, MATLAB).
  
 
 ## Contents
@@ -47,11 +48,11 @@ $~$
 
 ## Thermal Boundary Resistance (TBR)
 
-This section explains how to set up LAMMPS runs that yield the raw quantities required to determine the Kapitza resistance at the water-graphene oxide interface.
+This section describes how to configure, run, and process LAMMPS simulations to compute the Thermal Boundary Resistance at the water–graphene oxide interface.
 
 ### Overview
 
-A pristine graphene sheet is functionalized with a user-defined fraction of hydroxyl groups using `add_OH.m`. The resulting functionalized sheet is combined with a water box and equilibrated to yield an equilibrated configuration (`lammps/TBR/equilibration` folder). A temperature difference is then imposed between the graphene oxide and the water, allowing the graphene's energy and system's temperature evolution to be tracked for TBR evaluation (`lammps/TBR/transient` folder).
+A pristine graphene sheet is functionalized with a user-defined fraction of hydroxyl groups using `add_OH.m`. The resulting functionalized sheet is combined with a water box and equilibrated to yield an equilibrated configuration (`lammps/TBR/equilibration` folder). A temperature difference is then imposed between the graphene oxide and the water, allowing the graphene's energy and system's temperature evolution to be tracked for TBR evaluation (`lammps/TBR/transient` folder). A post-processing script provides the value of Kapitza resistance and conductance.
 
 ### Directory Structure
 
@@ -277,7 +278,7 @@ post-processing/PDOS/
    mpirun -np X lmp_mpi -in Water-Graph_pdos.in
    ```
 
-   *Tip*: it's possible to use a pre-equilibrated system (available in `lammps/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/TBR/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_pdos.in` accordingly
+   *Tip*: it's possible to use a pre-equilibrated system (available in `lammps/transient/systems_relaxed/`) or generate your own structure by simulating `lammps/TBR/equilibration/` (see *Thermal Boundary Resistance (TBR)* section). Change the `read_data` command in `Water-Graph_pdos.in` accordingly.
 
 2. **Compute the PDOS and spectral overlap**:
 
