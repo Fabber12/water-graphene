@@ -50,7 +50,7 @@ Includes LAMMPS input files (some generated via Moltemplate) and post-processing
 
 ## Thermal Boundary Resistance (TBR)
 
-This section describes how to configure, run, and process LAMMPS simulations to compute the Thermal Boundary Resistance at the water–graphene oxide interface.
+This section describes how to configure, run, and process LAMMPS simulations to compute the thermal boundary resistance at the water–graphene oxide interface, allowing control over the degree of hydroxyl functionalization.
 
 ### Overview
 
