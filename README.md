@@ -107,7 +107,7 @@ post-processing/TBR/
    mpirun -np X lmp_mpi -in Water-Graph_transient.in
    ```
 
-4. **Compute Kapitza resistance and conductance**:
+4. **Compute TBR**:
    ```bash
     cd post-processing/TBR
     ```
@@ -191,7 +191,7 @@ This section describes how to compute the water density profile across the graph
 
 ### Overview
 
-The trajectory (.dump) is first binned along the surface-normal axis—using molecular surfaces generated with EDTSurf to define the bin boundaries—to tally hydrogen and oxygen atoms in 0.1 Å-thick layers, after which these counts are converted into a mass-density profile across the graphene–water interface.
+Using EDTSurf‐generated molecular surfaces to define bin boundaries, the trajectory file is sliced into 0.1 Å‐thick layers along the surface‐normal axis; hydrogen and oxygen atoms in each layer are counted and the results converted into a mass‐density profile across the graphene–water interface.
 
 ### Directory Structure
 
