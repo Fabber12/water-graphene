@@ -156,7 +156,8 @@ The following outputs are used in the evaluation of TBR:
 > - *system_graph.txt* — temperature of the graphene sheet
 > - *system_h2o.txt* — temperature of the water bulk
 > - *temp_chunk_bias_1A.out* — water temperature profile along the z-axis
-> - *slab_position_verify.txt* — lists total number of spatial bins and the slab-skip offsets used to define the upper/lower temperature slabs
+> - *slab_position_check.txt* — lists the total number of spatial bins and the slab-skip offsets used to define the upper and lower temperature slabs
+> - *water-graph_transient.dump* — trajectory file used to extract the cross-sectional heat exchange area
 
 <br>
 
