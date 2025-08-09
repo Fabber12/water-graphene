@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import math
 
 """
 Created by F. Tarulli, Politecnico di Torino, Italy - February 27, 2025
@@ -9,13 +10,20 @@ Created by F. Tarulli, Politecnico di Torino, Italy - February 27, 2025
     based on the given oxidation percentage.
 
 """
+def round_as_matlab(x):
+    if x - math.floor(x) == 0.5:
+        return math.ceil(x)
+    else:
+        return round(x)
 
 if len(sys.argv) != 4:
     print("Usage: python remove_dump_lines.py input.dump output.dump oxidation_percent")
     sys.exit(1)
 
 input_file, output_file, oxidation = sys.argv[1], sys.argv[2], sys.argv[3]
-atoms = str(round(1972 * (1 + 2 * int(oxidation) / 100)))
+
+OH_groups = round_as_matlab(1972 * int(oxidation) / 100)
+atoms = str(1972 + 2 * OH_groups)
 replace_next = False
 
 print(f"Total atoms: {atoms} (C from graphene + O atoms + H from OH groups)")

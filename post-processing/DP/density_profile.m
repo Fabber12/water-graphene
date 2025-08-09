@@ -47,7 +47,7 @@ atom_types = struct('name', {'O', 'H',}, 'index', {1, 2});
 molar_masses = struct('O', MM_O, 'H', MM_H);
 
 
-counter = load('Counters/counters.mat').counterDOWN;
+counter = load('counters/counters.mat').counterDOWN;
 
 mean_counters = struct();
 masses = struct();
@@ -66,7 +66,7 @@ end
 densityDOWN=sumasses/V;
 
 
-counter = load('Counters/counters.mat').counterUP;
+counter = load('counters/counters.mat').counterUP;
 
 mean_counters = struct();
 masses = struct();

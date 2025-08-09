@@ -10,18 +10,18 @@
 %   - counters.mat: atom counts per layer and frame
 
 %%
-clear vars; close all; clc
+clear; close all; clc
 tic
 
 %% Settings
-oxid = ;                                      % Oxidation degree
+oxid = 20;                                      % Oxidation degree
 
 path_dump = fullfile('../../lammps/DP');
 path_ply = fullfile('MS','ply_ms');
 
 atom_types = struct('name', {'O','H'}, 'index', {1,2});
 
-N = 78148 + 2 * round(oxid/100 * 1972);       % 78148 water particles | 1972 graphene carbon atoms
+N = 76176 + 1972 + 2 * round(oxid/100 * 1972);       % 76176 water particles | 1972 graphene carbon atoms
 
 warning('off') % ('Warning: Duplicate data points have been detected and removed - corresponding values have been averaged.' during interpolation)
 
