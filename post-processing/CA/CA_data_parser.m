@@ -15,8 +15,8 @@ enable_plotting = false;
 
 for replica=0:2
 
-    filename_dump = sprintf('../../lammps/CA_test/%d-replica/wettability_%d.dump', replica,replica);
-    filename_txt = sprintf('../../lammps/CA_test/%d-replica/wettability_%d.txt', replica,replica);
+    filename_dump = sprintf('../../lammps/CA/%d-replica/wettability_%d.dump', replica,replica);
+    filename_txt = sprintf('../../lammps/CA/%d-replica/wettability_%d.txt', replica,replica);
     movefile(filename_dump, filename_txt)
     
     data_tot = readtable(filename_txt,'ReadVariableNames',false);
